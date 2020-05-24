@@ -141,6 +141,7 @@ class BookList extends React.Component {
                   <img alt="test" src={item.image}/>
                   </a>
                     {item.title}
+                    <input type="checkbox"/>
                 </div>
               </div>
             </div>
