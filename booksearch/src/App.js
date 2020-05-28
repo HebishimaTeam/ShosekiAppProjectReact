@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>書籍アプリ</header>
+        <header>書籍アプリ!!</header>
         <div className="container">
           <form onSubmit={this.onAddBookInfo}
                 autoComplete="off">
@@ -73,7 +73,7 @@ class App extends Component {
         if (res.data.items === void 0)
         {
           alert('取得に失敗しました。')
-          return;     
+          return;
         }
         //res.data.cou
         const newItem = {
@@ -101,7 +101,7 @@ class App extends Component {
       })
       .catch(console.error);
   }
-  
+
   // 書籍表示ボタン押下処理
   onShowBookInfo(event) {
     event.preventDefault();
