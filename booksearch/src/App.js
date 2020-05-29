@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <header>書籍アプリ</header>
+        <header>書籍アプリ★</header>
         <div className="container">
           <form onSubmit={this.onAddBookInfo}
                 autoComplete="off">
