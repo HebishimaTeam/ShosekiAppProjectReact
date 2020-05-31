@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Button from '../../atoms/Button';
 
 class LoginForm extends Component {
     onLogin = () => {
@@ -12,10 +13,11 @@ class LoginForm extends Component {
                 <form onSubmit={this.onLogin}
                         autoComplete="off"
                         >
-                    <button className="btnLogin"
-                            type="submit">
+                    <Button className="btnLogin"
+                            type="submit"
+                            variant="contained">
                             ログイン
-                    </button>
+                    </Button>
                 </form>
             </div>
         )   
