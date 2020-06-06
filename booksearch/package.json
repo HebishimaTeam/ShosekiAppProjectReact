@@ -41,5 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-shosekiappproject.cloudfunctions.net/Login"
+  "proxy": "https://us-central1-shosekiappproject.cloudfunctions.net/api"
 }

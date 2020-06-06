@@ -20,7 +20,7 @@ class LoginForm extends Component {
         // const axios = require('axios');
         //const data = { mail: 'Yohei', password: 'Munesada' };
         //axits.get
-        axios.post('https://us-central1-shosekiappproject.cloudfunctions.net/Login', this.state)
+        axios.post('/login', this.state)
             .then((res) => {
                 //APIにthis.stateのmailとパスワード
                 this.props.history.push('/BookSearch')
@@ -58,7 +58,8 @@ class LoginForm extends Component {
                             <TextBox label="password"
                                 name="password"
                                 value={this.state.password}
-                                onChange={this.handleChange}>
+                                onChange={this.handleChange}
+                                type='password'>
                             </TextBox>
                         </Grid>
                         <Grid item xs>

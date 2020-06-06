@@ -1,18 +1,26 @@
-//関数群定義
-const funcs = {
-    Login: './src/Login',
-    BookSearch: './src/BookSearch',
-}
+const functions = require('firebase-functions');
+const app = require('express')();
+// ユーザ関連機能
+const {
+    login
+} = require('./src/User');
 
-//loadFunctions関数定義
-loadFunctions = (funcs) => {
+// 書籍関連機能
+const {
+    getBookInfo,
+    deleteBookInfo,
+    updateBookInfo
+} = require('./src/Book');
 
-    for (let name in funcs) {
-        if (!process.env.FUNCTION_NAME || process.env.FUNCTION_NAME === name) {
-            exports[name] = require(funcs[name]);
-        }
-    }
-}
+// ログイン処理を設定
+app.post('/login', login);
 
-//locadFunction実行
-loadFunctions(funcs);
+// 書籍取得処理を設定
+app.get('/bookinfo', getBookInfo);
+// 書籍削除処理を設定
+app.delete('/deleteBookInfo', deleteBookInfo);
+// 書籍更新処理を設定
+app.post('/updateBookInfo', updateBookInfo);
+
+// HTTPリクエストトリガー設定
+exports.api = functions.region('us-central1').https.onRequest(app);
