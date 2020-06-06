@@ -4,6 +4,7 @@ import './App.css';
 //import firestore from 'firebase/firestore';
 import { firebaseDb } from './firebase/index';
 import axios from 'axios';
+import { bookSearch } from './firebase/func'
 
 const collection = firebaseDb.collection('books');
 
@@ -16,6 +17,7 @@ class App extends Component {
     this.isbn = this.isbn.bind(this);
     this.onAddBookInfo = this.onAddBookInfo.bind(this);
     this.onShowBookInfo = this.onShowBookInfo.bind(this);
+    bookSearch("testtest")
   }
 
   render() {

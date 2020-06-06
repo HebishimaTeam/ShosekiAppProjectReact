@@ -16,3 +16,28 @@ module.exports = functions.https.onRequest((req, res) => {
         res.status(200).end(req.query.param);
     }
 })
+
+//2022/02/21に作成したbookSearch()の追記
+import { firebaseDb } from './index'
+
+const collection = firebaseDb.collection('books')
+
+let bookList = []
+
+export const bookSearch = (bookName) => {
+    console.log(bookName)
+
+    collection.where("title", "==", bookName).get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            bookList.push(doc.data());
+            console.log(doc.data());
+        })
+        return bookList;
+    })
+
+    // collection.get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+    //         console.log(doc.data().image);
+    //     })
+    // })
+}
