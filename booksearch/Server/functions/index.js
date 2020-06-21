@@ -16,7 +16,7 @@ const {
 app.post('/login', login);
 
 // 書籍取得処理を設定
-app.get('/bookinfo', getBookInfo);
+app.get('/getBookinfo', getBookInfo);
 // 書籍削除処理を設定
 app.delete('/deleteBookInfo', deleteBookInfo);
 // 書籍更新処理を設定
