@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Button from '../../atoms/Button';
 import TextBox from '../../atoms/TextBox';
-//import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
@@ -17,9 +16,6 @@ class LoginForm extends Component {
     onLogin = (event) => {
         event.preventDefault();
 
-        // const axios = require('axios');
-        //const data = { mail: 'Yohei', password: 'Munesada' };
-        //axits.get
         axios.post('/login', this.state)
             .then((res) => {
                 //APIにthis.stateのmailとパスワード
@@ -30,8 +26,6 @@ class LoginForm extends Component {
 
             }
             );
-
-
     }
 
     handleChange = (event) => {
@@ -41,7 +35,6 @@ class LoginForm extends Component {
     }
     render() {
         return (
-            // <div>LoginForm</div>
             <Grid container >
                 <Grid item xs />
                 <Grid item xs>
@@ -73,8 +66,6 @@ class LoginForm extends Component {
                 </Grid>
                 <Grid item sm />
             </Grid >
-
-
         )
     }
 }
