@@ -24,8 +24,8 @@ exports.login = (req, res) => {
       return res.json({ token });
     })
     .catch(error => {
-      console.error(error);
-      // エラーの場合はステータスを403(アクセス拒否)に設定しエラーコードを返す
-      return res.status(403).json({ error: error.code });
+      console.error(error.message);
+      // ログイン失敗
+      return res.status(403).json({ error: "ログインに失敗しました。メールアドレス、パスワードを確認してください。" });
     })
 };
