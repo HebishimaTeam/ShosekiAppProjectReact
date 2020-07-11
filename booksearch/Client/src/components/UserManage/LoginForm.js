@@ -3,27 +3,35 @@ import Button from '../../atoms/Button';
 import TextBox from '../../atoms/TextBox';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class LoginForm extends Component {
     constructor(props, context) {
         super()
         this.state = {
             mail: '',
-            password: ''
+            password: '',
+            errors:{},
+            loading: false
         }
     }
 
     onLogin = (event) => {
         event.preventDefault();
-
+            this.setState({loading:true})
         axios.post('/login', this.state)
             .then((res) => {
+                this.setState({loading:false})
                 //APIにthis.stateのmailとパスワード
                 this.props.history.push('/BookSearch')
             },
             ).catch((error) => {
                 console.error(error);
-
+                this.setState({
+                    errors:error.response.data,
+                    loading:false,
+                })
+                alert('ログインエラーです');
             }
             );
     }
@@ -34,6 +42,7 @@ class LoginForm extends Component {
         });
     }
     render() {
+        const {loading}=this.state;
         return (
             <Grid container >
                 <Grid item xs />
@@ -60,6 +69,7 @@ class LoginForm extends Component {
                                 type="submit"
                                 variant="contained">
                                 ログイン
+                                {loading&&(<CircularProgress />)}
                             </Button>
                         </Grid>
                     </form>
