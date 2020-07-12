@@ -9,7 +9,8 @@ const {
 const {
     getBookInfo,
     deleteBookInfo,
-    updateBookInfo
+    updateBookInfo,
+    addBookInfo
 } = require('./src/Book');
 
 // ログイン処理を設定
@@ -21,6 +22,8 @@ app.get('/getBookinfo', getBookInfo);
 app.delete('/deleteBookInfo', deleteBookInfo);
 // 書籍更新処理を設定
 app.post('/updateBookInfo', updateBookInfo);
+// 書籍追加処理を設定
+app.post('/addBookInfo', addBookInfo);
 
 // HTTPリクエストトリガー設定
 exports.api = functions.region('us-central1').https.onRequest(app);
