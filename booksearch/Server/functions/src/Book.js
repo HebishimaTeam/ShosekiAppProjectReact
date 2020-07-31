@@ -58,3 +58,8 @@ exports.addBookInfo = (req, res) => {
         });
         return res.json('addBookInfo');
 };
+
+// 書籍情報更新
+exports.updateBookInfo = (req, res) => {
+
+}   
