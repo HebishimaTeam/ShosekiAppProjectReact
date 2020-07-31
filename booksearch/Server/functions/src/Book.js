@@ -6,7 +6,7 @@ const collection = firebaseDb.collection('books')
 exports.getBookInfo = (req, res) => {
     let bookList = [];
     const book = {
-        title: req.body.title
+        title: req.query.title
     }
     // TODO あいまい検索ができない
     // titleを条件に取得
@@ -23,6 +23,11 @@ exports.getBookInfo = (req, res) => {
             console.log(error);
             return res.status(403).json({ error })
         });
+};
+
+// 書籍情報追加
+exports.addBookInfo = (req, res) => {
+    return res.json('addBookInfo');
 };
 
 // 書籍情報削除

@@ -8,6 +8,7 @@ const {
 // 書籍関連機能
 const {
     getBookInfo,
+    addBookInfo,
     deleteBookInfo,
     updateBookInfo,
     addBookInfo
@@ -17,9 +18,11 @@ const {
 app.post('/login', login);
 
 // 書籍取得処理を設定
-app.get('/getBookinfo', getBookInfo);
+app.get('/getBookInfo', getBookInfo);
+// 書籍追加処理を設定
+app.post('/addBookInfo', addBookInfo);
 // 書籍削除処理を設定
-app.delete('/deleteBookInfo', deleteBookInfo);
+app.post('/deleteBookInfo', deleteBookInfo);
 // 書籍更新処理を設定
 app.post('/updateBookInfo', updateBookInfo);
 // 書籍追加処理を設定
