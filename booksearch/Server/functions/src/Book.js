@@ -32,7 +32,23 @@ exports.addBookInfo = (req, res) => {
 
 // 書籍情報削除
 exports.deleteBookInfo = (req, res) => {
+    let bookList = [];
+    const book = {
+        title: req.query.title
+    }
+    // 削除
+    collection.where("title", "==", book.title).splice()
+    .then(datas => {
+        datas.forEach(doc => {
+            deleteBookInfo.push(doc.data());
+            console.log(doc.data());
+        })
     return res.json('deleteBookInfo');
+})
+    .catch(error => {
+         console.log(error);
+         return res.status(403).json({ error })
+});
 };
 
 // 書籍情報更新
