@@ -25,6 +25,11 @@ exports.getBookInfo = (req, res) => {
         });
 };
 
+// 書籍情報全件取得
+exports.getAllBookInfo = (req, res) => {
+    return res.json('getAllBookInfo');
+};
+
 // 書籍情報削除
 exports.deleteBookInfo = (req, res) => {
 
