@@ -27,7 +27,19 @@ exports.getBookInfo = (req, res) => {
 
 // 書籍情報全件取得
 exports.getAllBookInfo = (req, res) => {
-    return res.json('getAllBookInfo');
+    let bookList = [];
+    collection.get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                bookList.push(doc.data());
+                console.log(doc.data());
+            })
+            return res.json(bookList);
+        })
+        .catch(error => {
+            console.log(error);
+            return res.status(500).json({error: "全件取得に失敗しました:" + error.message});
+        });
 };
 
 // 書籍情報削除
