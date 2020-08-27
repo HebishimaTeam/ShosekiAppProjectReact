@@ -62,6 +62,26 @@ exports.deleteBookInfo = (req, res) => {
 
 // 書籍情報更新
 exports.updateBookInfo = (req, res) => {
+
+    const update_book_info = {
+        comment: req.body.comment,
+        image: req.body.image,
+        link: req.body.link,
+        title: req.body.title
+    }
+    collection.doc(req.body.isbn).set({
+        comment: update_book_info.comment,
+        image: update_book_info.image,
+        link: update_book_info.link,
+        title: update_book_info.title
+    })
+    .then(function () {
+        console.log("bookInfo successfully updated!");
+    })
+    .catch(error => {
+        console.error("Error writing document: ", error);
+    });
+
     return res.json('updateBookInfo');
 };
 
