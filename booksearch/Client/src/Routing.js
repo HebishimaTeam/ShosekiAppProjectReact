@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LoginForm from './components/UserManage/LoginForm';
-import BookSearchForm from './components/BookManage/BookSearchForm';
+import BookSearchForm from './components/BookManage/BookSearchForm?';
+import BookAddForm from './components/BookManage/BookAddForm';
 
 class Routing extends Component {
   render() {
@@ -15,6 +16,8 @@ class Routing extends Component {
             <Route exact path="/Login" component={LoginForm} />
             {/* 検索画面 */}
             <Route exact path="/BookSearch" component={BookSearchForm} />
+            {/* 書籍追加画面 */}
+            <Route exact path="/BookAdd" component={BookAddForm} />
         </Switch>
         </div>
       </Router>
