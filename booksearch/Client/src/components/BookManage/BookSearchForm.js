@@ -64,13 +64,18 @@ class BookSearchForm extends Component {
         })
     }
 
+    showAddBookForm = (e) => {
+        //書籍追加画面に遷移
+        this.props.history.push('/BookAdd');
+    }
+
     render() {
         const { booktitle, books } = this.state;
         let searchedBooks = books ? books.map(book => <Book book={book} />)
             : (<div><CircularProgress /></div>)
         return (
             <div><div>BookSearchForm</div>
-                <form onSubmit={this.handleSubmit}>
+                <form>
                     <TextBox label="本のタイトル"
                         name="booktitle"
                         onChange={this.handleChange}
@@ -79,8 +84,14 @@ class BookSearchForm extends Component {
                     </TextBox>
                     <Button className="btnSearch"
                         type="submit"
-                        variant="contained">
+                        variant="contained"
+                        onClick={this.handleSubmit}>
                         検索 </Button>
+                    <Button
+                        variant="contained"
+                        onClick={this.showAddBookForm}>
+                        書籍追加
+                    </Button>
                     {searchedBooks}
                 </form>
             </div>

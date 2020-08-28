@@ -44,7 +44,7 @@ class LoginForm extends Component {
     this.setState({ loading: true })
     axios.post('/login', this.state.info)
       .then((res) => {
-        this.setState({ loading: false })
+        this.setState({ loading: false }) //ぐるぐるが終わる
         //APIにthis.stateのinfo
         this.props.history.push('/BookSearch')
       },
@@ -74,8 +74,8 @@ class LoginForm extends Component {
                 onChange={this.handleChange}>
               </TextBox>
               {message.mail && (
-              <p style={{ color: 'red', fontSize: 8 }}>{message.mail}</p>
-            )}
+                <p style={{ color: 'red', fontSize: 8 }}>{message.mail}</p>
+              )}
             </Grid>
             <Grid item xs>
               <TextBox label="password"
@@ -85,8 +85,8 @@ class LoginForm extends Component {
                 type='password'>
               </TextBox>
               {message.password && (
-              <p style={{ color: 'red', fontSize: 8 }}>{message.password}</p>
-            )}
+                <p style={{ color: 'red', fontSize: 8 }}>{message.password}</p>
+              )}
             </Grid>
             <Grid item xs>
               <Button className="btnLogin"
