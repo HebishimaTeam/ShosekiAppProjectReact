@@ -21,7 +21,7 @@ const BookSearchForm = () => {
         if (bookTitle === "") {
             commonAxiosProc('/getAllBookInfo');
         } else {
-            console.log("何かしら入ってる")
+            commonAxiosProc(`/getBookInfo?title=${bookTitle}`)
         }
     }
     const showAddBookForm = (e) => {
