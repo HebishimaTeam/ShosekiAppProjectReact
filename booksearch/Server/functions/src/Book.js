@@ -29,8 +29,8 @@ exports.getBookInfo = (req, res) => {
 exports.getAllBookInfo = (req, res) => {
     let bookList = [];
     collection.get()
-        .then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+        .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
                 bookList.push(doc.data());
                 console.log(doc.data());
             })
@@ -38,7 +38,7 @@ exports.getAllBookInfo = (req, res) => {
         })
         .catch(error => {
             console.log(error);
-            return res.status(500).json({error: "全件取得に失敗しました:" + error.message});
+            return res.status(500).json({ error: "全件取得に失敗しました:" + error.message });
         });
 };
 
@@ -48,16 +48,16 @@ exports.deleteBookInfo = (req, res) => {
     console.log("deleteBookInfo");
     console.log(req.body.isbn);
 
-   // 削除
-   collection.doc(req.body.isbn).delete()
-   .then(function () {
-       console.log("書籍情報を削除しました。");
-       return res.json('deleteBookInfo');
-   })
-   .catch(error => {
-       console.error(error.message);
-       return res.status(403).json({ error: "書籍情報の削除に失敗しました。" });
-     })
+    // 削除
+    collection.doc(req.body.isbn).delete()
+        .then(function () {
+            console.log("書籍情報を削除しました。");
+            return res.json('deleteBookInfo');
+        })
+        .catch(error => {
+            console.error(error.message);
+            return res.status(403).json({ error: "書籍情報の削除に失敗しました。" });
+        })
 };
 
 // 書籍情報更新
@@ -75,12 +75,12 @@ exports.updateBookInfo = (req, res) => {
         link: update_book_info.link,
         title: update_book_info.title
     })
-    .then(function () {
-        console.log("bookInfo successfully updated!");
-    })
-    .catch(error => {
-        console.error("Error writing document: ", error);
-    });
+        .then(function () {
+            console.log("bookInfo successfully updated!");
+        })
+        .catch(error => {
+            console.error("Error writing document: ", error);
+        });
 
     return res.json('updateBookInfo');
 };
@@ -104,8 +104,3 @@ exports.addBookInfo = (req, res) => {
         });
     return res.json('addBookInfo');
 };
-
-// 書籍情報更新
-exports.updateBookInfo = (req, res) => {
-
-}   
