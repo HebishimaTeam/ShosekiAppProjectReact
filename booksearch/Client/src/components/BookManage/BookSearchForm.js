@@ -4,10 +4,12 @@ import TextBox from '../../atoms/TextBox';
 import Book from "./Book";
 import axios from 'axios';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { useHistory } from 'react-router-dom';
 
 const BookSearchForm = () => {
     const [bookTitle, setBookTitle] = React.useState("");
     const [books, setBooks] = React.useState([]);
+    const history = useHistory();
     const commonAxiosProc = (url) => {
         axios.get(url)
             .then(res => setBooks(res.data))
@@ -19,14 +21,14 @@ const BookSearchForm = () => {
         if (bookTitle === "") {
             commonAxiosProc('/getAllBookInfo');
         } else {
-            commonAxiosProc(`/getBookInfo?title=${bookTitle}`)
+            console.log("何かしら入ってる")
         }
     }
     const showAddBookForm = (e) => {
         //書籍追加画面に遷移
-        this.props.history.push('/BookAdd');
+        history.push('/BookAdd');
     }
-    React.useEffect(() => commonAxiosProc('/getAllBookInfo'));
+    React.useEffect(() => commonAxiosProc('/getAllBookInfo'), []);
     return (
         <React.Fragment>
             <div>BookSearchForm</div>
