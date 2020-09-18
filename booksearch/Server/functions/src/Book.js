@@ -62,28 +62,24 @@ exports.deleteBookInfo = (req, res) => {
 
 // 書籍情報更新
 exports.updateBookInfo = (req, res) => {
-
     const update_book_info = {
         comment: req.body.comment,
         image: req.body.image,
         link: req.body.link,
         title: req.body.title
-    }
-    collection.doc(req.body.isbn).set({
-        comment: update_book_info.comment,
-        image: update_book_info.image,
-        link: update_book_info.link,
-        title: update_book_info.title
-    })
+    };
+
+    //"marge : true"によって既存のデータを残したまま更新
+    collection.doc(String(req.body.isbn)).set(update_book_info, {merge: true})
         .then(function () {
-            console.log("bookInfo successfully updated!");
+            console.log("書籍情報を更新しました。");
         })
         .catch(error => {
-            console.error("Error writing document: ", error);
+            return res.status(403).json({ error: "書籍情報の更新に失敗しました。" });         
         });
 
-    return res.json('updateBookInfo');
-};
+        return res.json({ sucess: "書籍情報の更新に成功しました。" });
+    };
 
 // 書籍情報追加
 exports.addBookInfo = (req, res) => {
