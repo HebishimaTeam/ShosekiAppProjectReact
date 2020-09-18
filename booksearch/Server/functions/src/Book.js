@@ -48,16 +48,16 @@ exports.deleteBookInfo = (req, res) => {
     console.log("deleteBookInfo");
     console.log(req.body.isbn);
 
-    // 削除
-    collection.doc(req.body.isbn).delete()
-        .then(function () {
-            console.log("Document successfully deleted!");
-            return res.json('deleteBookInfo');
-        })
-        .catch(error => {
-            console.log(error);
-            return res.status(403).json({ error })
-        });
+   // 削除
+   collection.doc(req.body.isbn).delete()
+   .then(function () {
+       console.log("書籍情報を削除しました。");
+       return res.json('deleteBookInfo');
+   })
+   .catch(error => {
+       console.error(error.message);
+       return res.status(403).json({ error: "書籍情報の削除に失敗しました。" });
+     })
 };
 
 // 書籍情報更新
