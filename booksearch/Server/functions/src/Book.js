@@ -94,13 +94,24 @@ exports.addBookInfo = (req, res) => {
         link: req.body.link,
         title: req.body.title
     };
-    // Add a new document in collection "books" with ID 'id'
-    collection.doc(add_book_info.isbn).set(add_book_info)
-        .then(function () {
-            console.log("bookInfo successfully written!");
-        })
-        .catch(error => {
-            console.error("Error writing document: ", error);
-        });
-    return res.json('addBookInfo');
+
+    var docRef = collection.doc(add_book_info.isbn);
+
+    docRef.get().then(function(doc){
+        if(doc.exists){
+            return res.status(403).json({ error: "書籍情報は既に存在しています。" });
+        }else{
+            // Add a new document in collection "books" with ID 'id'
+            collection.doc(add_book_info.isbn).set(add_book_info)
+            .then(function () {
+                console.log("書籍情報を追加しました。");
+            })
+            .catch(error => {
+                console.error(error.message);
+                return res.status(403).json({ error: "書籍情報の追加に失敗しました。" });         
+            });
+            return res.json({ sucess: "書籍情報の追加に成功しました。" });
+        }
+    });
+    
 };
