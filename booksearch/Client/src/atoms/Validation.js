@@ -16,6 +16,8 @@ const passwordValidation = (password) => {
 class Validation {
 	static formValidate = (type, value) => {
 		switch (type) {
+			default:
+				return ''
 			case 'mail':
 				return mailValidation(value)
 			case 'password':
