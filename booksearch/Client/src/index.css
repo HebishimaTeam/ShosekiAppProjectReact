@@ -1,0 +1,11 @@
+body {
+    margin: 0 ;
+}
+/* Book CardActionArea適用 */
+.MuiCardActionArea-root {
+    width: fit-content !important;
+}
+.wrap {
+    text-align: center;
+    margin: 40px 0;
+}

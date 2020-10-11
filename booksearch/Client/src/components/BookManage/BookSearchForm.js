@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Button from '../../atoms/Button';
 import TextBox from '../../atoms/TextBox';
 import Book from "./Book";
@@ -31,18 +31,20 @@ const BookSearchForm = () => {
     React.useEffect(() => commonAxiosProc('/getAllBookInfo'), []);
     return (
         <React.Fragment>
-            <div>BookSearchForm</div>
-            <TextBox
-                onChange={onTextboxChanged}
-                value={bookTitle} />
-            <Button
-                variant="contained"
-                onClick={onSearchBtnClicked}
-            >検索 </Button>
-            <Button
-                variant="contained"
-                onClick={showAddBookForm}
-            >書籍追加</Button>
+            <div className="wrap">
+                <div>BookSearchForm</div>
+                <TextBox
+                    onChange={onTextboxChanged}
+                    value={bookTitle} />
+                <Button
+                    variant="contained"
+                    onClick={onSearchBtnClicked}
+                >検索 </Button>
+                <Button
+                    variant="contained"
+                    onClick={showAddBookForm}
+                >書籍追加</Button>
+            </div>
             {books.length !== 0 ? books.map(book => <Book book={book} />) : <CircularProgress />}
         </React.Fragment>
     )

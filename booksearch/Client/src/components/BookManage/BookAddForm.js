@@ -44,7 +44,7 @@ export class BookAddForm extends Component {
         const { newBook, isbn } = this.state;
         let searchedBook = newBook ? (<Book book={newBook} />) : (<p>ここ本の情報が表示されます。</p>)
         return (
-            <div>
+            <div className="wrap">
                 <TextBox
                     name="isbn"
                     onChange={this.handleChange}
