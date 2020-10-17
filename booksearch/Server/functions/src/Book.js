@@ -2,19 +2,43 @@ const firebase = require('firebase');
 const firebaseDb = firebase.firestore();
 const collection = firebaseDb.collection('books')
 
+// N-gram形式に変換
+const ngram = (words, n) => {
+    var i;
+    var grams = [];
+    for (i = 0; i <= words.length - n; i++) {
+        grams.push(words.substr(i, n).toLowerCase());
+    }
+    return grams;
+}
+
 // 書籍情報取得
 exports.getBookInfo = (req, res) => {
     let bookList = [];
     const book = {
         title: req.query.title
     }
-    // TODO あいまい検索ができない
-    // titleを条件に取得
-    collection.where("title", "==", book.title).get()
+
+    // タイトルをunigram形式で取得
+    const searchWords = ngram(book.title, 1);
+
+    // unigram形式をmapに変換
+    var tokenMap = {};
+    searchWords.forEach(item => {
+        tokenMap[item] = true;
+    })
+
+    // DBに登録されているmapをもとに検索条件を設定
+    let query = collection;
+    searchWords.forEach(word => {
+        query = query.where(`tokenMap.${word}`, '==', true);
+    });
+
+    // 取得
+    query.get()
         .then(datas => {
             datas.forEach(doc => {
                 bookList.push(doc.data());
-                console.log(doc.data());
             })
             // jsonに変換して書籍情報を返す
             return res.json(bookList);
@@ -62,52 +86,70 @@ exports.deleteBookInfo = (req, res) => {
 
 // 書籍情報更新
 exports.updateBookInfo = (req, res) => {
+
+    // unigram形式に変換
+    const searchWords = ngram(req.body.title, 1);
+
+    // mapに変換
+    var tokenMap = {};
+    searchWords.forEach(item => {
+        tokenMap[item] = true;
+    })
+
     const update_book_info = {
         comment: req.body.comment,
         image: req.body.image,
-        link: req.body.link,
-        title: req.body.title
-    };
-
-    //"marge : true"によって既存のデータを残したまま更新
-    collection.doc(String(req.body.isbn)).set(update_book_info, {merge: true})
+        title: req.body.title,
+        tokenMap: tokenMap
+    }
+    collection.doc(req.body.isbn.toString()).set(update_book_info)
         .then(function () {
-            console.log("書籍情報を更新しました。");
+            console.log("bookInfo successfully updated!");
         })
         .catch(error => {
-            return res.status(403).json({ error: "書籍情報の更新に失敗しました。" });         
+            console.error("Error writing document: ", error);
         });
 
-        return res.json({ sucess: "書籍情報の更新に成功しました。" });
-    };
+    return res.json('updateBookInfo');
+};
 
 // 書籍情報追加
 exports.addBookInfo = (req, res) => {
+
+    // unigram形式に変換
+    const searchWords = ngram(req.body.title, 1);
+
+    // mapに変換
+    var tokenMap = {};
+    searchWords.forEach(item => {
+        tokenMap[item] = true;
+    })
+
     const add_book_info = {
         isbn: req.body.isbn,
         comment: req.body.comment,
         image: req.body.image,
-        link: req.body.link,
-        title: req.body.title
+        title: req.body.title,
+        tokenMap: tokenMap
     };
 
     var docRef = collection.doc(add_book_info.isbn);
 
-    docRef.get().then(function(doc){
-        if(doc.exists){
+    docRef.get().then(function (doc) {
+        if (doc.exists) {
             return res.status(403).json({ error: "書籍情報は既に存在しています。" });
-        }else{
+        } else {
             // Add a new document in collection "books" with ID 'id'
             collection.doc(add_book_info.isbn).set(add_book_info)
-            .then(function () {
-                console.log("書籍情報を追加しました。");
-            })
-            .catch(error => {
-                console.error(error.message);
-                return res.status(403).json({ error: "書籍情報の追加に失敗しました。" });         
-            });
+                .then(function () {
+                    console.log("書籍情報を追加しました。");
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    return res.status(403).json({ error: "書籍情報の追加に失敗しました。" });
+                });
             return res.json({ sucess: "書籍情報の追加に成功しました。" });
         }
     });
-    
+
 };
