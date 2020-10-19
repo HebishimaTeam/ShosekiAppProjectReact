@@ -1,11 +1,69 @@
 body {
-    margin: 0 ;
+    margin: 0;
 }
-/* Book CardActionArea適用 */
-.MuiCardActionArea-root {
-    width: fit-content !important;
+/* フレーム設定  */
+.wrap-router {
+    margin: 0 auto;
+    display:flex;
+    flex-direction: column;
+    min-height:100vh;
 }
+.wrap-router > .header {
+    height: 70px;
+}
+.wrap-router > .body{
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 80px;
+    display:flex;
+    flex-direction: column;
+}
+.body > main {
+    flex: 1;
+}
+.body > nav, .body > aside{
+    width: 150px;
+}
+.wrap-router >.footer {
+    height:100px;
+}
+/* メインコンテンツ */
 .wrap {
     text-align: center;
     margin: 40px 0;
 }
+/* 画像 */
+.img-content{
+    display: table;
+    width: 200px;
+    height: 280px;
+}
+.img-content > img{
+    width: fit-content !important;
+    max-width: 200px;
+    height: 280px;
+}
+.img-content > .noImage {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    background-color: rgb(225, 247, 247);
+    font-weight:bold;
+}
+/* textarea */
+.textarea-primary {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    max-height: 300px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    font-size: 14px;
+    outline: none;
+    line-height: 1.6;
+    resize: vertical;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+

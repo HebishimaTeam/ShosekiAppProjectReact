@@ -1,13 +1,14 @@
 import React from 'react'
-import { AppBar, Toolbar,InputBase } from '@material-ui/core'
+import { AppBar, Toolbar, InputBase } from '@material-ui/core'
 import BookIcon from '@material-ui/icons/MenuBook'
 import SearchIcon from '@material-ui/icons/Search'
-import { withRouter } from 'react-router';
-import axios from 'axios';
+import { withRouter } from 'react-router'
+import axios from 'axios'
+import '../index.css'
 
 class NavBar extends React.Component {
     constructor() {
-        super();
+        super()
         this.state = {
             books: null
         }
@@ -15,7 +16,7 @@ class NavBar extends React.Component {
 
     //検索ボタンをクリックした時の処理
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (this.state.booktitle === '') {
             axios.get('/getAllBookInfo')
                 .then(res => {
@@ -23,11 +24,10 @@ class NavBar extends React.Component {
                     this.setState({
                         books: res.data
                     })
-
                 })
                 .catch(error => {
                     //失敗パターン
-                    alert(error);
+                    alert(error)
                 })
         } else {
             axios.get(`/getBookInfo?title=${this.state.booktitle}`)
@@ -37,7 +37,7 @@ class NavBar extends React.Component {
                     })
                 })
                 .catch(error => {
-                    alert(error);
+                    alert(error)
                 })
         }
     }
@@ -49,7 +49,7 @@ class NavBar extends React.Component {
                     <BookIcon onClick={()=>this.props.history.push('/')}></BookIcon>
                     <div>
                         <div>
-                            <SearchIcon/>
+                            <SearchIcon />
                         </div>
                         <InputBase
                             placeholder="Search…"
@@ -63,4 +63,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default withRouter(NavBar);
+export default withRouter(NavBar)

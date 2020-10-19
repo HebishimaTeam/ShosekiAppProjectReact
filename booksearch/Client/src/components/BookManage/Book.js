@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
-import { Card, CardActionArea, CardContent, Typography, IconButton } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
+import { Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
+import EditModal from './EditModal'
+import DeleteModal from './DeleteModal'
 
 const styles = {
     root: {
         display: 'flex',
         padding: '15px 0px',
+        width: '100%'
     },
     contents: {
-        flex: '1 0 auto',
+        flex: '1',
     },
     buttons: {
         width: '60px',
@@ -17,35 +18,33 @@ const styles = {
 }
 
 class Book extends Component {
-    onDelete = (event) => {
-        var result = window.confirm('削除してもよろしいですか？')
-        if (result)
-            // ToDo削除処理記述
-            console.log('OKがクリックされました');
-    }
     render() {
         return (
-            <Card style={styles.root} >
-                <CardActionArea>
-                    <img src={this.props.book.image} alt="bookImage" />
-                </CardActionArea>
-                <div style={styles.contents}>
-                    <CardContent>
-                        <Typography variant="h5">{this.props.book.title}</Typography>
-                        <Typography variant="body2">{this.props.book.comment}</Typography>
-                    </CardContent>
-                </div>
-                <div style={styles.buttons}>
-                    <IconButton aria-label="edit">
-                        <EditIcon color="secondary" />
-                    </IconButton>
-                    <IconButton color="primary" aria-label="delete" onClick={this.onDelete}>
-                        <DeleteIcon />
-                    </IconButton>
-                </div>
-            </Card>
+            <React.Fragment>
+                <Card style={styles.root} >
+                    <div className="img-content">
+                        {this.props.book.image === '' ?
+                            (<div className="noImage"> No Image</div>)
+                            :
+                            (<CardActionArea> <img src={this.props.book.image} alt="bookImage" /></CardActionArea>)
+                        }
+                    </div>
+                    <div style={styles.contents}>
+                        <CardContent>
+                            <Typography variant="h5">{this.props.book.title}</Typography>
+                            <Typography variant="body2">{this.props.book.comment}</Typography>
+                        </CardContent>
+                    </div>
+                    <div style={styles.buttons}>
+                        <EditModal />
+                        {!this.props.kanriFlg && (
+                            <DeleteModal />
+                        )}
+                    </div>
+                </Card>
+            </React.Fragment >
         )
     }
 }
-export default Book;
+export default Book
 
