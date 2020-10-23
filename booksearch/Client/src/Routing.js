@@ -10,6 +10,7 @@ import store from "./redux/store";
 class Routing extends Component {
   render() {
     return (
+      // storeをどのコンポーネントでも呼び出せるようにするために、Providerコンポーネントですべての画面をラップする
       <Provider store={store}>
         <div className="wrap-router">
           <Router >

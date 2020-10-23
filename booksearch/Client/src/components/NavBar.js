@@ -8,7 +8,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { SOME_ACTION } from "../redux/session";
 
 const NavBar = (props) => {
+    //reduxのsession sliceのsearchBookオブジェクトを呼び出し
     const searchBook = useSelector(state => state.session.searchBook)
+    //reduxにデータを送るための関数を作成
     const dispatch = useDispatch()
     const [book, setBook] = useState('')
     return (
@@ -17,7 +19,7 @@ const NavBar = (props) => {
                 <BookIcon onClick={() => props.history.push('/')}></BookIcon>
                 <div>
                     <div>
-                        {/* 虫眼鏡をクリックするとSOME_ACTION */}
+                        {/* 虫眼鏡をクリックするとsession sliceのSOME_ACTIONというactionを実行 */}
                         <SearchIcon onClick={() => { dispatch(SOME_ACTION(book)) }} />
                         {`searchedBook:${searchBook}`}
                     </div>
