@@ -12,10 +12,9 @@ const DeleteModal = (props) => {
     const closeModal = () => {
         setOpen(false)
     }
-    const onRegister = () => {
-        // ToDo削除処理後,リロード
+    const onDelete = () => {
         console.log(props.isbn)
-        props.onSearchBtnClicked()
+        // TODO: ISBNを渡して書籍情報をDBから削除する関数をここで呼ぶ
         closeModal()
     }
 
@@ -34,7 +33,7 @@ const DeleteModal = (props) => {
                 <DialogActions>
                     <Button
                         color="primary"
-                        variant="contained" onClick={onRegister}>
+                        variant="contained" onClick={onDelete}>
                         はい
                     </Button>
                     <Button color="primary" onClick={closeModal}>

@@ -23,7 +23,7 @@ const Book = (props) => {
                 <div className="book-bottons">
                     <EditModal book={props.book} kanriFlg={props.kanriFlg} onSearchBtnClicked={() => props.onSearchBtnClicked()} />
                     {showModalFlg &&
-                        <DeleteModal isbn={props.book.isbn} bookTitle={props.bookTitle} onSearchBtnClicked={() => props.onSearchBtnClicked()} />
+                        <DeleteModal isbn={props.book.isbn} bookTitle={props.bookTitle} />
                     }
                 </div>
             </Card>
