@@ -26,7 +26,6 @@ const EditModal = (props) => {
     }
     const onRegister = () => {
         // props.onSearchBtnClicked(props.bookTitle)
-        alert(title)
         axios.post('/updateBookInfo', {
             isbn: props.book.isbn,
             title: title,
