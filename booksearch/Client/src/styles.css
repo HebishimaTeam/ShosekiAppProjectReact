@@ -33,37 +33,32 @@ body {
     margin: 40px 0;
 }
 /* 画像 */
+.book-image-row {
+    display: flex;
+    padding: 15px 0px;
+    width: 100%;
+}
 .img-content{
     display: table;
     width: 200px;
     height: 280px;
 }
 .img-content > img{
-    width: fit-content !important;
+    width: fit-content;
     max-width: 200px;
     height: 280px;
 }
-.img-content > .noImage {
+.img-content > .no-image {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
     background-color: rgb(225, 247, 247);
     font-weight:bold;
 }
-/* textarea */
-.textarea-primary {
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    max-height: 300px;
-    padding: 8px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #e5e5e5;
-    font-size: 14px;
-    outline: none;
-    line-height: 1.6;
-    resize: vertical;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+.book-contents {
+    flex: 1;
+}
+.book-bottons {
+    width: 60px;
 }
 

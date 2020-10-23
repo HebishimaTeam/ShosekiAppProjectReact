@@ -1,10 +1,11 @@
-import React from 'react'
-import Button from '../../atoms/Button'
-import DeleteIcon from '@material-ui/icons/Delete'
+import React, { useState } from 'react'
+import { Button } from '../../atoms/index'
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-export default function EditModal() {
-    const [open, setOpen] = React.useState(false)
+const DeleteModal = (props) => {
+    const [open, setOpen] = useState(false)
+
     const openModal = () => {
         setOpen(true)
     }
@@ -13,7 +14,9 @@ export default function EditModal() {
     }
     const onRegister = () => {
         // ToDo削除処理後,リロード
-        setOpen(false)
+        console.log(props.isbn)
+        props.onSearchBtnClicked()
+        closeModal()
     }
 
     return (
@@ -34,7 +37,7 @@ export default function EditModal() {
                         variant="contained" onClick={onRegister}>
                         はい
                     </Button>
-                    <Button onClick={closeModal} color="primary">
+                    <Button color="primary" onClick={closeModal}>
                         いいえ
                     </Button>
                 </DialogActions>
@@ -42,3 +45,4 @@ export default function EditModal() {
         </div>
     )
 }
+export default DeleteModal

@@ -4,7 +4,7 @@ import BookIcon from '@material-ui/icons/MenuBook'
 import SearchIcon from '@material-ui/icons/Search'
 import { withRouter } from 'react-router'
 import axios from 'axios'
-import '../index.css'
+import '../styles.css'
 
 class NavBar extends React.Component {
     constructor() {
@@ -46,7 +46,7 @@ class NavBar extends React.Component {
         return (
             <AppBar position="static">
                 <Toolbar>
-                    <BookIcon onClick={()=>this.props.history.push('/')}></BookIcon>
+                    <BookIcon onClick={() => this.props.history.push('/')}></BookIcon>
                     <div>
                         <div>
                             <SearchIcon />
@@ -54,7 +54,7 @@ class NavBar extends React.Component {
                         <InputBase
                             placeholder="Search…"
                             inputProps={{ 'aria-label': 'search' }}
-                            onSubmit={()=>this.handleSubmit()}
+                            onSubmit={() => this.handleSubmit()}
                         />
                     </div>
                 </Toolbar>

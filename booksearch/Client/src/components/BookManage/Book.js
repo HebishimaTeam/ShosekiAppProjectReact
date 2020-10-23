@@ -1,50 +1,34 @@
-import React, { Component } from 'react'
-import { Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
-import EditModal from './EditModal'
-import DeleteModal from './DeleteModal'
+import React from 'react'
+import { Card, CardContent, Typography } from '@material-ui/core'
+import { EditModal, DeleteModal, BookImage } from './index'
 
-const styles = {
-    root: {
-        display: 'flex',
-        padding: '15px 0px',
-        width: '100%'
-    },
-    contents: {
-        flex: '1',
-    },
-    buttons: {
-        width: '60px',
-    }
-}
+const Book = (props) => {
 
-class Book extends Component {
-    render() {
-        return (
-            <React.Fragment>
-                <Card style={styles.root} >
-                    <div className="img-content">
-                        {this.props.book.image === '' ?
-                            (<div className="noImage"> No Image</div>)
-                            :
-                            (<CardActionArea> <img src={this.props.book.image} alt="bookImage" /></CardActionArea>)
-                        }
-                    </div>
-                    <div style={styles.contents}>
-                        <CardContent>
-                            <Typography variant="h5">{this.props.book.title}</Typography>
-                            <Typography variant="body2">{this.props.book.comment}</Typography>
-                        </CardContent>
-                    </div>
-                    <div style={styles.buttons}>
-                        <EditModal />
-                        {!this.props.kanriFlg && (
-                            <DeleteModal />
-                        )}
-                    </div>
-                </Card>
-            </React.Fragment >
-        )
-    }
+    let showModalFlg = false
+    if (props.kanriFlg) showModalFlg = true
+    if (props.addFlg) showModalFlg = false
+
+    return (
+        <React.Fragment>
+            <Card className="book-image-row" >
+                <div className="img-content">
+                    <BookImage image={props.book.image} />
+                </div>
+                <div className="book-contents">
+                    <CardContent>
+                        <Typography variant="h5">{props.book.title}</Typography>
+                        <Typography variant="body2">{props.book.comment}</Typography>
+                    </CardContent>
+                </div>
+                <div className="book-bottons">
+                    <EditModal book={props.book} kanriFlg={props.kanriFlg} onSearchBtnClicked={() => props.onSearchBtnClicked()} />
+                    {showModalFlg &&
+                        <DeleteModal isbn={props.book.isbn} bookTitle={props.bookTitle} onSearchBtnClicked={() => props.onSearchBtnClicked()} />
+                    }
+                </div>
+            </Card>
+        </React.Fragment >
+    )
 }
 export default Book
 

@@ -1,54 +1,74 @@
-import React from 'react'
-import Button from '../../atoms/Button'
-import TextBox from '../../atoms/TextBox'
-import EditIcon from '@material-ui/icons/Edit'
+import React, { useState } from 'react'
+import { TextBox, Button } from '../../atoms/index'
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit'
 
-export default function EditModal() {
-    const [open, setOpen] = React.useState(false)
+const EditModal = (props) => {
+    const [title, setTile] = useState(props.book.title)
+    const [comment, setComment] = useState(props.book.comment)
+    const [open, setOpen] = useState(false)
+    // const [book, setbook] = useState(props.book) サーバに渡すとき1まとまりにしたい
+
     const openModal = () => {
         setOpen(true)
     }
     const closeModal = () => {
+        setTile(props.book.title)
+        setComment(props.book.comment)
         setOpen(false)
+    }
+    const changeTitle = (e) => {
+        setTile(e.target.value)
+    }
+    const changeComment = (e) => {
+        setComment(e.target.value)
     }
     const onRegister = () => {
-        // ToDo登録処理後リロード
-        setOpen(false)
+        props.onSearchBtnClicked(props.bookTitle)
+        closeModal()
     }
-    // ToDo kanriFlg処理
-    const kanriFlg = false
 
     return (
         <div>
             <IconButton onClick={openModal}>
                 <EditIcon color="secondary" />
             </IconButton>
-            <Dialog open={open} onClose={closeModal}>
+            <Dialog fullWidth open={open} onClose={closeModal}>
                 <DialogTitle>Subscribe</DialogTitle>
                 <DialogContent>
-                    {!kanriFlg && (
-                        // ToDo title処理
+                    {props.kanriFlg && (
                         <TextBox
-                            margin="dense"
                             label="title"
                             fullWidth
+                            value={title}
+                            onChange={changeTitle}
                         />
                     )}
-                    {/* ToDo comment処理 */}
-                    <textarea cols="50" rows="30" placeholder="Comment" className="textarea-primary" />
+                    <TextBox
+                        label="comment"
+                        style={{ marginTop: 10 }}
+                        placeholder="comment"
+                        fullWidth
+                        margin="normal"
+                        variant="outlined"
+                        multiline
+                        rows={10}
+                        value={comment}
+                        onChange={changeComment}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button
                         color="primary"
                         variant="contained" onClick={onRegister}>
-                        保存
+                        登録
                     </Button>
                     <Button onClick={closeModal} color="primary">
-                        閉じる
+                        キャンセル
                     </Button>
                 </DialogActions>
             </Dialog>
         </div>
     )
 }
+export default EditModal

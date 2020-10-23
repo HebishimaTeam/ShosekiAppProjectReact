@@ -17,7 +17,7 @@ const BookSearchForm = () => {
     }
     const onTextboxChanged = (e) => setBookTitle(e.target.value)
     const onSearchBtnClicked = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         if (bookTitle === "") {
             commonAxiosProc('/getAllBookInfo')
         } else {
@@ -30,7 +30,8 @@ const BookSearchForm = () => {
     }
     React.useEffect(() => commonAxiosProc('/getAllBookInfo'), [])
     // ToDo kanriFlg処理
-    const kanriFlg = false
+    let kanriFlg = false
+    kanriFlg = true
 
     return (
         <React.Fragment>
@@ -44,14 +45,14 @@ const BookSearchForm = () => {
                     onClick={onSearchBtnClicked}
                 >検索
                 </Button>
-                {!kanriFlg &&
+                {kanriFlg &&
                     (<Button
                         variant="contained"
                         onClick={showAddBookForm}
                     >書籍追加
                     </Button>)}
             </div>
-            {books.length !== 0 ? books.map(book => <Book book={book} kanriFlg={kanriFlg} />) : <CircularProgress />}
+            {books.length !== 0 ? books.map(book => <Book book={book} kanriFlg={kanriFlg} onSearchBtnClicked={() => onSearchBtnClicked()} />) : <CircularProgress />}
         </React.Fragment>
     )
 }
