@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TextBox, Button } from '../../atoms/index'
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
+import axios from 'axios'
 
 const EditModal = (props) => {
     const [title, setTile] = useState(props.book.title)
@@ -24,7 +25,24 @@ const EditModal = (props) => {
         setComment(e.target.value)
     }
     const onRegister = () => {
-        props.onSearchBtnClicked(props.bookTitle)
+        // props.onSearchBtnClicked(props.bookTitle)
+        alert(title)
+        axios.post('/updateBookInfo', {
+            isbn: props.book.isbn,
+            title: title,
+            comment: comment,
+            image: props.book.image
+        })
+            .then((res) => {
+                alert('更新しました。')
+                props.onSearchBtnClicked(props.book.title)
+            },
+            ).catch((error) => {
+                console.error(error)
+                alert('更新に失敗しました。管理者問い合わせてください。')
+            }
+            )
+
         closeModal()
     }
 
