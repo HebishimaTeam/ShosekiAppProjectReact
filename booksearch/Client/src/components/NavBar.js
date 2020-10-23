@@ -1,66 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AppBar, Toolbar, InputBase } from '@material-ui/core'
 import BookIcon from '@material-ui/icons/MenuBook'
 import SearchIcon from '@material-ui/icons/Search'
 import { withRouter } from 'react-router'
-import axios from 'axios'
 import '../styles.css'
+import { useSelector, useDispatch } from "react-redux";
+import { SOME_ACTION } from "../redux/session";
 
-class NavBar extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            books: null
-        }
-    }
-
-    //検索ボタンをクリックした時の処理
-    handleSubmit = (e) => {
-        e.preventDefault()
-        if (this.state.booktitle === '') {
-            axios.get('/getAllBookInfo')
-                .then(res => {
-                    //成功パターン
-                    this.setState({
-                        books: res.data
-                    })
-                })
-                .catch(error => {
-                    //失敗パターン
-                    alert(error)
-                })
-        } else {
-            axios.get(`/getBookInfo?title=${this.state.booktitle}`)
-                .then(res => {
-                    this.setState({
-                        books: res.data
-                    })
-                })
-                .catch(error => {
-                    alert(error)
-                })
-        }
-    }
-
-    render() {
-        return (
-            <AppBar position="static">
-                <Toolbar>
-                    <BookIcon onClick={() => this.props.history.push('/')}></BookIcon>
+const NavBar = (props) => {
+    const searchBook = useSelector(state => state.session.searchBook)
+    const dispatch = useDispatch()
+    const [book, setBook] = useState('')
+    return (
+        <AppBar position="static">
+            <Toolbar>
+                <BookIcon onClick={() => props.history.push('/')}></BookIcon>
+                <div>
                     <div>
-                        <div>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                            onSubmit={() => this.handleSubmit()}
-                        />
+                        {/* 虫眼鏡をクリックするとSOME_ACTION */}
+                        <SearchIcon onClick={() => { dispatch(SOME_ACTION(book)) }} />
+                        {`searchedBook:${searchBook}`}
                     </div>
-                </Toolbar>
-            </AppBar>
-        )
-    }
+                    <InputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                        onChange={(e) => { setBook(e.target.value) }}
+                    />
+                </div>
+            </Toolbar>
+        </AppBar>
+    )
 }
 
 export default withRouter(NavBar)
