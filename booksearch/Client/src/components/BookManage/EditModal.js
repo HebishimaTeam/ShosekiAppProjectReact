@@ -33,8 +33,8 @@ const EditModal = (props) => {
             image: props.book.image
         })
             .then((res) => {
-                props.onSearchBtnClicked(props.book.title)
                 alert('更新しました。')
+                props.onSearchBtnClicked(props.book.title)
             },
             ).catch((error) => {
                 console.error(error)
