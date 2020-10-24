@@ -6,6 +6,7 @@ import BookAddForm from './components/BookManage/BookAddForm'
 import NavBar from './components/Navigation/NavBar'
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Auth from "./components/UserManage/Auth";
 
 class Routing extends Component {
   render() {
@@ -14,26 +15,28 @@ class Routing extends Component {
       <Provider store={store}>
         <div className="wrap-router">
           <Router >
-            <div className="header">
-              <NavBar />
-            </div>
-            <div className="body">
-              <nav></nav>
-              <main>
-                <Switch>
-                  {/* 指定なしの場合はログイン画面 */}
-                  <Route exact path="/" component={LoginForm} />
-                  {/* ログイン画面 */}
-                  <Route exact path="/Login" component={LoginForm} />
-                  {/* 検索画面 */}
-                  {/* TODO: 検索内容をBookSearchFormに受け渡す処理追加 */}
-                  <Route exact path="/BookSearch" component={() => <BookSearchForm searchTitle="" />} />
-                  {/* 書籍追加画面 */}
-                  <Route exact path="/BookAdd" component={BookAddForm} />
-                </Switch>
-              </main>
-              <aside></aside>
-            </div>
+            <main>
+              <Switch>
+                {/* 指定なしの場合はログイン画面 */}
+                <Route exact path="/" component={LoginForm} />
+                {/* ログイン画面 */}
+                <Route exact path="/Login" component={LoginForm} />
+                {/* Authの子要素にログイン後画面を入れる */}
+                <Auth>
+                  <div className="header">
+                    <NavBar />
+                  </div>
+                  <Switch>
+                    {/* 検索画面 */}
+                    {/* TODO: 検索内容をBookSearchFormに受け渡す処理追加 */}
+                    <Route exact path="/BookSearch" component={() => <BookSearchForm searchTitle="" />} />
+                    {/* 書籍追加画面 */}
+                    <Route exact path="/BookAdd" component={BookAddForm} />
+                  </Switch>
+                </Auth>
+              </Switch>
+            </main>
+            <aside></aside>
             <div className="footer">
             </div>
           </Router>

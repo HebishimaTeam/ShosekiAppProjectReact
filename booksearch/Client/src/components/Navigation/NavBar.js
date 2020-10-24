@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar, Button } from '@material-ui/core'
 import BookIcon from '@material-ui/icons/MenuBook'
 import { withRouter } from 'react-router'
 import '../../styles.css'
 import { useSelector, useDispatch } from "react-redux";
-import { SOME_ACTION ,authenticated} from "../../redux/Slices/session/session";
+import { searchBook } from "../../redux/Slices/book/book";
+import { logout } from "../../redux/Slices/session/session";
 import SearchField from "./SearchField";
 
 const NavBar = (props) => {
-    //reduxのsession sliceの状態オブジェクトから、searchBookプロパティを呼び出し
-    const searchBook = useSelector(state => state.session.searchBook)
+    //reduxのbook sliceの状態オブジェクトから、searchBookプロパティを呼び出し
+    const searchedBook = useSelector(state => state.book.searchBook)
     //reduxにデータを送るための関数を作成
     const dispatch = useDispatch()
     const [book, setBook] = useState('')
@@ -17,17 +18,24 @@ const NavBar = (props) => {
         <AppBar position="static" style={{ flexGrow: true }}>
             <Toolbar style={{ alignItems: "center" }}>
                 <BookIcon onClick={() => props.history.push('/')}></BookIcon>
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'inline-flex', width: '100%' }}>
                     <div style={{ padding: "auto" }}>
-                        {/* Enterするとsession sliceのSOME_ACTIONというactionを実行 */}
+                        {/* Enterするとbook sliceのsearchBookというactionを実行 */}
                         <SearchField
                             onChange={(e) => { setBook(e.target.value) }}
-                            onSubmit={() => { dispatch(SOME_ACTION(book)) }}
+                            onSubmit={() => { dispatch(searchBook(book)) }}
                         />
                     </div>
+                    {/* 動作確認用の表示 */}
                     <div style={{ marginBottom: "auto", marginTop: "auto" }}>
-                        {`検索文字列:${searchBook}`}
+                        {`検索文字列:${searchedBook}`}
                     </div>
+                    <Button
+                        style={{ marginBottom: "auto", marginTop: "auto", marginLeft: "auto", marginRight: "5px" }}
+                        variant="contained"
+                        onClick={() => { dispatch(logout()) }}>
+                        ログアウト
+                    </Button>
                 </div>
             </Toolbar>
         </AppBar>

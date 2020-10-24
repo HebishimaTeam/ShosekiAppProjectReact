@@ -34,7 +34,7 @@ const BookSearchForm = () => {
     kanriFlg = true
 
     return (
-        <React.Fragment>
+        <div className="body">
             <div className="wrap">
                 <div>BookSearchForm</div>
                 <TextBox
@@ -53,7 +53,7 @@ const BookSearchForm = () => {
                     </Button>)}
             </div>
             {books.length !== 0 ? books.map(book => <Book book={book} kanriFlg={kanriFlg} onSearchBtnClicked={() => onSearchBtnClicked()} />) : <CircularProgress />}
-        </React.Fragment>
+        </div>
     )
 }
 export default BookSearchForm

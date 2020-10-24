@@ -47,7 +47,7 @@ export class BookAddForm extends Component {
         let searchedBook = newBook ? (<Book book={newBook} addFlg={addFlg} />) : (<p>ここ本の情報が表示されます。</p>)
 
         return (
-            <React.Fragment>
+            <div className="body">
                 <div className="wrap">
                     <TextBox
                         name="isbn"
@@ -59,7 +59,7 @@ export class BookAddForm extends Component {
                     >検索</Button>
                     {searchedBook}
                 </div>
-            </React.Fragment>
+            </div>
         )
     }
 }

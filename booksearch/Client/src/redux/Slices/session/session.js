@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 /**session sliceで管理する状態を格納したstateの初期状態 */
 export const initialState = {
-    searchBook: '',
-    authenticated: false
+    isAuthorized: false
 }
 
 // slice(必要に応じて分割したstore)を作成
@@ -14,26 +13,24 @@ const sessionSlice = createSlice({
     initialState: initialState,
     // 指定されたアクションに従ってstateを書き換える関数
     reducers: {
-        SOME_ACTION: (state, action) => {
-            // SOME_ACTIONの引数に入れた文字列をstate.searchBookに割り当てる
-            state.searchBook = action.payload;
-            // 変更したstateを返す
-            return state;
-        },
         // コンポーネントで呼び出す際は、authenticated関数の返り値をdispatch関数の引数に入れる
         // 例: "dispatch(authenticated(true))"
         // 引数はreducer関数内でaction.payloadに入る
-        authenticated: (state, action) => {
-            // payloadの値によってstateのauthenticatedプロパティを書き換える
-            state.authenticated = action.payload
+        login: (state, action) => {
+            state.isAuthorized = true
             // 変化したstateを返す
-            return state;
+            return state
+        },
+        logout: (state, action) => {
+            state.isAuthorized = false
+            return state
         }
     }
 })
 
 export const { actions, reducer } = sessionSlice
 
-export const { SOME_ACTION, authenticated } = actions
+//dispatch関数の引数にこれらの関数の戻り値を投入する
+export const { login, logout } = actions
 
 export default reducer
