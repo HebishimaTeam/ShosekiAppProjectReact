@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sessionReducer from "./session";
+import sessionReducer from "./Slices/session/session";
 
 // reduxで管理する状態間利用のオブジェクト store を設定
 const store = configureStore({

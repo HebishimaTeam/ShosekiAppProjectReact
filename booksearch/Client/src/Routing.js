@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LoginForm from './components/UserManage/LoginForm'
 import BookSearchForm from './components/BookManage/BookSearchForm'
 import BookAddForm from './components/BookManage/BookAddForm'
-import NavBar from './components/NavBar'
+import NavBar from './components/Navigation/NavBar'
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
