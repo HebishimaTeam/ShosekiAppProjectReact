@@ -4,16 +4,24 @@ import BookIcon from '@material-ui/icons/MenuBook'
 import { withRouter } from 'react-router'
 import '../../styles.css'
 import { useSelector, useDispatch } from "react-redux";
-import { searchBook } from "../../redux/Slices/book/book";
-import { logout } from "../../redux/Slices/session/session";
+import { searchBook } from "../../redux/slices/book/book";
+import { logout } from "../../redux/slices/session/session";
 import SearchField from "./SearchField";
 
 const NavBar = (props) => {
     //reduxのbook sliceの状態オブジェクトから、searchBookプロパティを呼び出し
+    //useSelectorで参照したプロパティが更新されたときはコンポーネントが再描画される
     const searchedBook = useSelector(state => state.book.searchBook)
     //reduxにデータを送るための関数を作成
     const dispatch = useDispatch()
     const [book, setBook] = useState('')
+
+    const handleSubmit = () => {
+        dispatch(searchBook(book))
+        props.history.push('/BookSearch')
+    }
+
+    // TODO: cssをインラインで書いてしまっているので.cssファイルに変更する
     return (
         <AppBar position="static" style={{ flexGrow: true }}>
             <Toolbar style={{ alignItems: "center" }}>
@@ -23,12 +31,8 @@ const NavBar = (props) => {
                         {/* Enterするとbook sliceのsearchBookというactionを実行 */}
                         <SearchField
                             onChange={(e) => { setBook(e.target.value) }}
-                            onSubmit={() => { dispatch(searchBook(book)) }}
+                            onSubmit={handleSubmit}
                         />
-                    </div>
-                    {/* 動作確認用の表示 */}
-                    <div style={{ marginBottom: "auto", marginTop: "auto" }}>
-                        {`検索文字列:${searchedBook}`}
                     </div>
                     <Button
                         style={{ marginBottom: "auto", marginTop: "auto", marginLeft: "auto", marginRight: "5px" }}

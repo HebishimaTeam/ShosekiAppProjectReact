@@ -6,7 +6,7 @@ import axios from 'axios'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Validation from '../../atoms/Validation.js'
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/Slices/session/session";
+import { login } from "../../redux/slices/session/session";
 
 const LoginForm = (props) => {
 

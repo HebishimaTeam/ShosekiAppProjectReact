@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-/**session sliceで管理する状態を格納したstateの初期状態 */
+/**book sliceで管理する状態を格納したstateの初期状態 */
 export const initialState = {
     searchBook: '',
 }
 
 // slice(必要に応じて分割したstore)を作成
-/**session関連の情報を格納したstore */
-const sessionSlice = createSlice({
+/**book関連の情報を格納したstore */
+const bookSlice = createSlice({
     name: "book",
-    // session sliceの初期状態
+    // book sliceの初期状態
     initialState: initialState,
     // 指定されたアクションに従ってstateを書き換える関数
     reducers: {
@@ -21,7 +21,7 @@ const sessionSlice = createSlice({
     }
 })
 
-export const { actions, reducer } = sessionSlice
+export const { actions, reducer } = bookSlice
 
 export const { searchBook } = actions
 

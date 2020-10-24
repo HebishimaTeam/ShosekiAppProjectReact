@@ -29,7 +29,7 @@ class Routing extends Component {
                   <Switch>
                     {/* 検索画面 */}
                     {/* TODO: 検索内容をBookSearchFormに受け渡す処理追加 */}
-                    <Route exact path="/BookSearch" component={() => <BookSearchForm searchTitle="" />} />
+                    <Route exact path="/BookSearch" component={() => <BookSearchForm />} />
                     {/* 書籍追加画面 */}
                     <Route exact path="/BookAdd" component={BookAddForm} />
                   </Switch>
