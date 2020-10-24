@@ -101,36 +101,28 @@ exports.updateBookInfo = (req, res) => {
         image: req.body.image,
         title: req.body.title,
         tokenMap: tokenMap
-    }
-    collection.doc(req.body.isbn.toString()).set(update_book_info)
+    };
+
+    //"marge : true"によって既存のデータを残したまま更新
+    collection.doc(String(req.body.isbn)).set(update_book_info, { merge: true })
         .then(function () {
-            console.log("bookInfo successfully updated!");
+            console.log("書籍情報を更新しました。");
         })
         .catch(error => {
-            console.error("Error writing document: ", error);
+            return res.status(403).json({ error: "書籍情報の更新に失敗しました。" });
         });
 
-    return res.json('updateBookInfo');
+    return res.json({ sucess: "書籍情報の更新に成功しました。" });
 };
 
 // 書籍情報追加
 exports.addBookInfo = (req, res) => {
-
-    // unigram形式に変換
-    const searchWords = ngram(req.body.title, 1);
-
-    // mapに変換
-    var tokenMap = {};
-    searchWords.forEach(item => {
-        tokenMap[item] = true;
-    })
-
     const add_book_info = {
         isbn: req.body.isbn,
         comment: req.body.comment,
         image: req.body.image,
-        title: req.body.title,
-        tokenMap: tokenMap
+        link: req.body.link,
+        title: req.body.title
     };
 
     var docRef = collection.doc(add_book_info.isbn);
