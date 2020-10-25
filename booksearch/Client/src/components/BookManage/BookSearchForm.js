@@ -17,7 +17,7 @@ const BookSearchForm = () => {
             .then(res => setBooks(res.data))
             .catch(error => alert(error))
     }
-    const onTextboxChanged = (e) => setBookTitle(e.target.value)
+
     const searchBook = (title) => {
         if (title === "") {
             commonAxiosProc('/getAllBookInfo')
@@ -48,14 +48,6 @@ const BookSearchForm = () => {
         <div className="body">
             <div className="wrap">
                 <div>BookSearchForm</div>
-                <TextBox
-                    onChange={onTextboxChanged}
-                    value={bookTitle} />
-                <Button
-                    variant="contained"
-                    onClick={onSearchBtnClicked}
-                >検索
-                </Button>
                 {kanriFlg &&
                     (<Button
                         variant="contained"
