@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sessionReducer from "./slices/session/session";
-import bookReducer from "./slices/book/book";
+import sessionReducer from "./Slices/session/session";
+import bookReducer from "./Slices/book/book";
 
 // storeを作成
 const store = configureStore({

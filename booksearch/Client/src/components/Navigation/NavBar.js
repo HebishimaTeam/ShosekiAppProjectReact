@@ -4,8 +4,8 @@ import BookIcon from '@material-ui/icons/MenuBook'
 import { withRouter } from 'react-router'
 import '../../styles.css'
 import { useSelector, useDispatch } from "react-redux";
-import { searchBook } from "../../redux/slices/book/book";
-import { logout } from "../../redux/slices/session/session";
+import { searchBook } from "../../redux/Slices/book/book";
+import { logout } from "../../redux/Slices/session/session";
 import SearchField from "./SearchField";
 
 const NavBar = (props) => {
