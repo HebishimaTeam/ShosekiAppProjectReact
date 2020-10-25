@@ -14,8 +14,6 @@ const EditModal = (props) => {
         setOpen(true)
     }
     const closeModal = () => {
-        setTile(props.book.title)
-        setComment(props.book.comment)
         setOpen(false)
     }
     const changeTitle = (e) => {
@@ -25,7 +23,7 @@ const EditModal = (props) => {
         setComment(e.target.value)
     }
     const onRegister = () => {
-        // props.onSearchBtnClicked(props.bookTitle)
+        // 更新機能を実行
         axios.post('/updateBookInfo', {
             isbn: props.book.isbn,
             title: title,
@@ -33,15 +31,16 @@ const EditModal = (props) => {
             image: props.book.image
         })
             .then((res) => {
+                // 更新成功したため、再検索を行いリフレッシュ
                 props.onSearchBtnClicked(props.book.title)
                 alert('更新しました。')
             },
             ).catch((error) => {
                 console.error(error)
-                alert('更新に失敗しました。管理者問い合わせてください。')
+                alert('更新に失敗しました。管理者に問い合わせてください。')
             }
             )
-
+        // 画面を閉じる
         closeModal()
     }
 
