@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextBox } from '../../atoms/index'
+import { Button, TextBox, Validation } from '../../atoms/index'
 import { Book } from './index'
 import axios from 'axios'
 
@@ -10,6 +10,7 @@ const BookAddForm = () => {
     const [isbn, setIsbn] = useState('')
     const [newBook, setBook] = useState(null)
     const [searchedMsg, setSearchedMessage] = useState('ここに本の情報が表示されます')
+    const [message, setValidMessage] = useState('ISBNを入力してください')
 
     const searchBook = () => {
         //google Books APiを検索
@@ -32,10 +33,10 @@ const BookAddForm = () => {
             })
     }
     const changeIsbn = (e) => {
-        // const re = /^[0-9\b]+$/
-        // 空白ではないかつ数字のみISBNにset
-        // if (re.test(e.target.value))
-        setIsbn(e.target.value)
+        // 空白ではないかつ数字の場合ISBNにset
+        const onlyNumber = e.target.value.replace(/[^0-9]/g, '')
+        setIsbn(onlyNumber)
+        setValidMessage(Validation.formValidate('isbn', onlyNumber))
     }
 
     let searchedBook = newBook ? (<Book book={newBook} />) : (searchedMsg)
@@ -47,15 +48,18 @@ const BookAddForm = () => {
                     name="isbn"
                     onChange={changeIsbn}
                     value={isbn} />
+                {message && (
+                    <p className="valid-message">{message}</p>
+                )}
                 <Button
                     color='primary'
                     variant='contained'
                     onClick={searchBook}
-                    disabled={isbn.length < 10 || 13 < isbn.length}
+                    disabled={message.length !== 0}
                 >検索</Button>
             </div>
-            {searchedBook}
-        </div>
+            { searchedBook}
+        </div >
     )
 }
 

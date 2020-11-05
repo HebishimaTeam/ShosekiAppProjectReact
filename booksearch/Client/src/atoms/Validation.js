@@ -13,6 +13,12 @@ const passwordValidation = (password) => {
 	return ''
 }
 
+const isbnValidation = (isbn) => {
+	if (isbn.length <= 9 || 14 <= isbn.length) return 'isbnは10桁以上13桁以内で入力してください'
+
+	return ''
+}
+
 class Validation {
 	static formValidate = (type, value) => {
 		switch (type) {
@@ -22,7 +28,10 @@ class Validation {
 				return mailValidation(value)
 			case 'password':
 				return passwordValidation(value)
+			case 'isbn':
+				return isbnValidation(value)
 		}
 	}
 }
+
 export default Validation
