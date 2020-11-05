@@ -10,7 +10,7 @@ export class BookAddForm extends Component {
     constructor() {
         super()
         this.state = {
-            isbn: null,
+            isbn: '',
             newBook: null
         }
     }
@@ -54,7 +54,8 @@ export class BookAddForm extends Component {
                         onChange={this.handleChange}
                         value={isbn}></TextBox>
                     <Button
-                        variant="contains"
+                        color='primary'
+                        variant="contained"
                         onClick={this.searchBook}
                     >検索</Button>
                     {searchedBook}
