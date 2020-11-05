@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 import { Button } from '../../atoms/index'
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
+import { IconButton, Dialog, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+// import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { searchBook } from '../../redux/Slices/book/book'
 
 const DeleteModal = (props) => {
+
     const [open, setOpen] = useState(false)
+    const dispatch = useDispatch()
 
     const openModal = () => {
         setOpen(true)
@@ -13,9 +18,14 @@ const DeleteModal = (props) => {
         setOpen(false)
     }
     const onRegister = () => {
-        // ToDo削除処理後,リロード
-        console.log(props.isbn)
-        props.onSearchBtnClicked()
+        // 削除処理
+        //     .then(() => {
+        dispatch(searchBook())
+        //         alert('削除しました。')
+        //     }).catch((error) => {
+        //         console.error(error)
+        //         alert('削除に失敗しました。管理者に問い合わせてください。')
+        //     })
         closeModal()
     }
 
@@ -25,7 +35,6 @@ const DeleteModal = (props) => {
                 <DeleteIcon color="primary" />
             </IconButton>
             <Dialog open={open} onClose={closeModal}>
-                <DialogTitle>Subscribe</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         削除してよろしいですか？
@@ -45,4 +54,5 @@ const DeleteModal = (props) => {
         </div>
     )
 }
+
 export default DeleteModal

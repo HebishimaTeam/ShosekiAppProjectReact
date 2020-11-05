@@ -1,21 +1,37 @@
-import React from 'react'
-import Button from '../../atoms/Button'
-import Book from './Book'
+import React, { useState, useEffect } from 'react'
+import { Button } from '../../atoms/index'
+import { Book } from './index'
 import axios from 'axios'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 // import TextBox from '../../atoms/TextBox'
+// import CircularProgress from '@material-ui/core/CircularProgress'
+
+// ToDo セッションから取得
+let kanriFlg = false
+kanriFlg = true
 
 const BookSearchForm = () => {
-    const [books, setBooks] = React.useState([])
+
+    const [books, setBooks] = useState([])
+    const [searchedMsg, setSearchedMessage] = useState('ここに本の表示がされます')
     const history = useHistory()
     const navBarSearched = useSelector(state => state.book.searchBook);
     // const [bookTitle, setBookTitle] = React.useState("")
+
+    const showAddBookForm = (e) => {
+        //書籍追加画面に遷移
+        history.push('/BookAdd')
+    }
     const commonAxiosProc = (url) => {
         axios.get(url)
-            .then(res => setBooks(res.data))
-            .catch(error => alert(error))
+            .then(res => {
+                setBooks(res.data)
+                if (res.data.length === 0) setSearchedMessage('該当する本はありません')
+            },
+            ).catch(error => {
+                alert(error)
+            })
     }
 
     // const searchBook = (title) => {
@@ -29,18 +45,13 @@ const BookSearchForm = () => {
     //     //画面内のタイトルで検索
     //     searchBook(bookTitle)
     // }
-    const showAddBookForm = (e) => {
-        //書籍追加画面に遷移
-        history.push('/BookAdd')
-    }
-    React.useEffect(() => commonAxiosProc('/getAllBookInfo'), [])
+    useEffect(() => commonAxiosProc('/getAllBookInfo'), [])
 
     //NavBarで検索処理が実行されたときにnavBarSearchedが書き換えられ、この処理が実行される
-    // React.useEffect(() => {
+    // useEffect(() => {
     //     if (navBarSearched !== "") searchBook(navBarSearched)
     // }, [navBarSearched, searchBook])
-
-    React.useEffect(() => {
+    useEffect(() => {
         const searchBook = (title) => {
             if (title === "") {
                 commonAxiosProc('/getAllBookInfo')
@@ -50,10 +61,6 @@ const BookSearchForm = () => {
         }
         searchBook(navBarSearched)
     }, [navBarSearched])
-
-    // ToDo kanriFlg処理
-    let kanriFlg = false
-    kanriFlg = true
 
     return (
         <div className="body">
@@ -66,8 +73,9 @@ const BookSearchForm = () => {
                     >書籍追加
                     </Button>)}
             </div>
-            {books.length !== 0 ? books.map((book, idx) => <Book book={book} key={idx.toString()} kanriFlg={kanriFlg} />) : <CircularProgress />}
+            {books.length !== 0 ? books.map((book, idx) => <Book book={book} key={idx.toString()} />) : searchedMsg}
         </div>
     )
 }
+
 export default BookSearchForm

@@ -3,15 +3,22 @@ import { TextBox, Button } from '../../atoms/index'
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { searchBook } from '../../redux/Slices/book/book'
 
 const EditModal = (props) => {
     const [title, setTile] = useState(props.book.title)
     const [comment, setComment] = useState(props.book.comment)
     const [open, setOpen] = useState(false)
-    // const [book, setbook] = useState(props.book) サーバに渡すとき1まとまりにしたい
+    const [addFlg, setAddFlg] = useState(false)
+    const dispatch = useDispatch()
 
     const openModal = () => {
+        setTile(props.book.title)
+        setComment(props.book.comment)
         setOpen(true)
+        let path = window.location.pathname.replace('/', '')
+        if (path === "BookAdd") setAddFlg(true)
     }
     const closeModal = () => {
         setOpen(false)
@@ -23,23 +30,25 @@ const EditModal = (props) => {
         setComment(e.target.value)
     }
     const onRegister = () => {
-        // 更新機能を実行
-        axios.post('/updateBookInfo', {
-            isbn: props.book.isbn,
-            title: title,
-            comment: comment,
-            image: props.book.image
-        })
-            .then((res) => {
+        // 新規登録
+        if (addFlg) {
+            // 新規登録処理
+        } else {
+            // 更新
+            axios.post('/updateBookInfo', {
+                isbn: props.book.isbn,
+                title: title,
+                comment: comment,
+                image: props.book.image
+            }).then((res) => {
                 // 更新成功したため、再検索を行いリフレッシュ
-                props.onSearchBtnClicked(props.book.title)
+                dispatch(searchBook(title))
                 alert('更新しました。')
-            },
-            ).catch((error) => {
+            }).catch((error) => {
                 console.error(error)
                 alert('更新に失敗しました。管理者に問い合わせてください。')
-            }
-            )
+            })
+        }
         // 画面を閉じる
         closeModal()
     }
@@ -50,16 +59,14 @@ const EditModal = (props) => {
                 <EditIcon color="secondary" />
             </IconButton>
             <Dialog fullWidth open={open} onClose={closeModal}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>{!addFlg ? '編集画面' : '追加画面'}</DialogTitle>
                 <DialogContent>
-                    {props.kanriFlg && (
-                        <TextBox
-                            label="title"
-                            fullWidth
-                            value={title}
-                            onChange={changeTitle}
-                        />
-                    )}
+                    <TextBox
+                        label="title"
+                        fullWidth
+                        value={title}
+                        onChange={changeTitle}
+                    />
                     <TextBox
                         label="comment"
                         style={{ marginTop: 10 }}
@@ -79,7 +86,7 @@ const EditModal = (props) => {
                         variant="contained" onClick={onRegister}>
                         登録
                     </Button>
-                    <Button onClick={closeModal} color="primary">
+                    <Button color="primary" onClick={closeModal}>
                         キャンセル
                     </Button>
                 </DialogActions>
@@ -87,4 +94,5 @@ const EditModal = (props) => {
         </div>
     )
 }
+
 export default EditModal

@@ -61,4 +61,8 @@ body {
 .book-bottons {
     width: 60px;
 }
+.valid-message {
+    color:#de475e;
+    font-size: 8px;
+}
 

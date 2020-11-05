@@ -1,67 +1,62 @@
-import React, { Component } from 'react'
-import Button from '../../atoms/Button'
-import TextBox from '../../atoms/TextBox'
+import React, { useState } from 'react'
+import { Button, TextBox } from '../../atoms/index'
+import { Book } from './index'
 import axios from 'axios'
-import Book from './Book'
 
 const openbdApi = 'https://api.openbd.jp/v1/get?isbn='
 
-export class BookAddForm extends Component {
-    constructor() {
-        super()
-        this.state = {
-            isbn: '',
-            newBook: null
-        }
-    }
+const BookAddForm = () => {
 
-    searchBook = (e) => {
-        e.preventDefault()
+    const [isbn, setIsbn] = useState('')
+    const [newBook, setBook] = useState(null)
+    const [searchedMsg, setSearchedMessage] = useState('ここに本の情報が表示されます')
+
+    const searchBook = () => {
         //google Books APiを検索
-        axios.get(`${openbdApi}${this.state.isbn}&pretty`)
+        axios.get(`${openbdApi}${isbn}&pretty`)
             .then(res => {
                 //検索成功パターン
                 const newBook = {
+                    isbn: res.data[0].summary.isbn,
                     title: res.data[0].summary.title,
                     image: res.data[0].summary.cover,
                     comment: res.data[0].onix.CollateralDetail.TextContent[0].Text
                 }
-                console.log(newBook)
-                this.setState({ newBook })
+                setBook(newBook)
             })
             .catch(err => {
                 //検索失敗
+                setBook(null)
+                setSearchedMessage('該当するデータがみつかりませんでした')
                 console.error(err)
             })
     }
-    handleChange = (e) => {
-        //テキストボックスに入力されたISBNコードを、stateのbooktitleにsetしたい
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    const changeIsbn = (e) => {
+        // const re = /^[0-9\b]+$/
+        // 空白ではないかつ数字のみISBNにset
+        // if (re.test(e.target.value))
+        setIsbn(e.target.value)
     }
 
-    render() {
-        const { newBook, isbn } = this.state
-        const addFlg = true
-        let searchedBook = newBook ? (<Book book={newBook} addFlg={addFlg} />) : (<p>ここ本の情報が表示されます。</p>)
-
-        return (
-            <div className="body">
-                <div className="wrap">
-                    <TextBox
-                        name="isbn"
-                        onChange={this.handleChange}
-                        value={isbn}></TextBox>
-                    <Button
-                        color='primary'
-                        variant="contained"
-                        onClick={this.searchBook}
-                    >検索</Button>
-                    {searchedBook}
-                </div>
+    let searchedBook = newBook ? (<Book book={newBook} />) : (searchedMsg)
+    return (
+        <div className="body">
+            <div className="wrap">
+                ISBN-
+                <TextBox
+                    name="isbn"
+                    onChange={changeIsbn}
+                    value={isbn} />
+                <Button
+                    color='primary'
+                    variant='contained'
+                    onClick={searchBook}
+                    disabled={isbn.length < 10 || 13 < isbn.length}
+                >検索</Button>
             </div>
-        )
-    }
+            {searchedBook}
+        </div>
+    )
 }
+
 export default BookAddForm
