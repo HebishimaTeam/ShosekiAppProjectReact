@@ -1,4 +1,4 @@
 node_modules
 launch.json
-debug.log
+*.log
 package-lock.json

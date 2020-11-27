@@ -76,11 +76,11 @@ exports.deleteBookInfo = (req, res) => {
     collection.doc(req.body.isbn).delete()
         .then(function () {
             console.log("書籍情報を削除しました。");
-            return res.json('deleteBookInfo');
+            return res.json({ message: "書籍情報を削除しました。"});
         })
         .catch(error => {
             console.error(error.message);
-            return res.status(403).json({ error: "書籍情報の削除に失敗しました。" });
+            return res.status(403).json({ message: "書籍情報の削除に失敗しました。" });
         })
 };
 

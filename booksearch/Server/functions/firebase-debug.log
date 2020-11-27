@@ -1,0 +1,17 @@
+[debug] [2020-11-27T07:00:05.554Z] ----------------------------------------------------------------------
+[debug] [2020-11-27T07:00:05.556Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\small\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2020-11-27T07:00:05.556Z] CLI Version:   8.4.3
+[debug] [2020-11-27T07:00:05.557Z] Platform:      win32
+[debug] [2020-11-27T07:00:05.557Z] Node Version:  v12.18.2
+[debug] [2020-11-27T07:00:05.558Z] Time:          Fri Nov 27 2020 16:00:05 GMT+0900 (GMT+09:00)
+[debug] [2020-11-27T07:00:05.558Z] ----------------------------------------------------------------------
+[debug] [2020-11-27T07:00:05.558Z] 
+[debug] [2020-11-27T07:00:05.574Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-27T07:00:05.575Z] > authorizing via signed-in user
+[debug] [2020-11-27T07:00:05.575Z] [iam] checking project shosekiappproject for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2020-11-27T07:00:05.578Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-27T07:00:05.578Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-27T07:00:05.869Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","date":"Fri, 27 Nov 2020 06:59:06 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-27T07:00:05.879Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/shosekiappproject:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}

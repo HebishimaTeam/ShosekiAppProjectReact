@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '../../atoms/index'
 import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import axios from 'axios'
 
 const DeleteModal = (props) => {
     const [open, setOpen] = useState(false)
@@ -15,7 +16,22 @@ const DeleteModal = (props) => {
     const onDelete = () => {
         console.log(props.isbn)
         // TODO: ISBNを渡して書籍情報をDBから削除する関数をここで呼ぶ
+        deleteBookInfo(props.isbn)
         closeModal()
+    }
+
+    const deleteBookInfo = (isbn) => {
+        console.log('call api')
+        axios.post('/deleteBookInfo', { isbn: isbn }).then(res => {
+            console.log(`response is ${JSON.stringify(res)}`)
+            if(res.status === 200){
+                alert(res.data.message)
+            }else if(res.status >= 500){
+                alert('サーバーにリクエストが正常に到達しませんでした。時間をおいて再度実行してください。')
+            }else {
+                alert(`削除リクエストに失敗しました。サーバ側からのレスポンスメッセージ：${res.data.message}`)
+            }
+        })
     }
 
     return (
