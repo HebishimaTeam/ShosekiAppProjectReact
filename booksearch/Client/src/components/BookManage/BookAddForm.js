@@ -39,6 +39,23 @@ const BookAddForm = () => {
         setValidMessage(Validation.formValidate('isbn', onlyNumber))
     }
 
+/**ファイル読み込み時のハンドラ */
+    const handleChangeFile = e => {
+        if (!e.target.files.length || !e.target.files[0] || !e.target.files[0].name.endsWith(".json")) {
+            alert("非対応のファイル形式")
+            return
+        }
+
+        let reader = new FileReader();
+
+        reader.readAsText(e.target.files[0])
+
+        reader.addEventListener('load', () => {
+            const text = JSON.parse(reader.result)
+            console.log(text);
+        })
+    }
+
     let searchedBook = newBook ? (<Book book={newBook} />) : (searchedMsg)
     return (
         <div className="body">
@@ -59,6 +76,10 @@ const BookAddForm = () => {
                 >検索</Button>
             </div>
             { searchedBook}
+            <div>
+                <p>まとめて追加！</p>
+                <input type="file" onChange={handleChangeFile} />
+            </div>
         </div >
     )
 }
