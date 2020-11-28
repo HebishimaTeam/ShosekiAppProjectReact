@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 /**session sliceで管理する状態を格納したstateの初期状態 */
 export const initialState = {
-    isAuthorized: false
+    isAuthorized: false,
+    isAdmin: false,
 }
 
 // slice(必要に応じて分割したstore)を作成
@@ -18,8 +19,7 @@ const sessionSlice = createSlice({
         // 引数はreducer関数内でaction.payloadに入る
         login: (state, action) => {
             state.isAuthorized = true
-            // 変化したstateを返す
-            return state
+            state.isAdmin = action.payload.isAdmin
         },
         logout: (state, action) => {
             state.isAuthorized = false

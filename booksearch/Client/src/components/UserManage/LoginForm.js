@@ -15,6 +15,7 @@ const LoginForm = (props) => {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
   const isAuthorized = useSelector(state => state.session.isAuthorized)
+
   const dispatch = useDispatch()
 
   const handleChange = (event) => {
@@ -48,7 +49,7 @@ const LoginForm = (props) => {
       .then((res) => {
         setLoading(false) //ぐるぐるが終わる
         // アクションを発行してログインフラグを立てる
-        dispatch(login())
+        dispatch(login({ isAdmin: res.data.isAdmin }))
       },
       ).catch((error) => {
         console.error(error)

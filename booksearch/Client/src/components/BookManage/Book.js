@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Card, CardContent, Typography } from '@material-ui/core'
 import { EditModal, DeleteModal, BookImage } from './index'
+import { useSelector } from 'react-redux'
 
 // ToDo kanriFlg セッションから取得
-let kanriFlg = true
+
 
 const Book = (props) => {
 
     const [isShowDeleteModal, setshowModal] = useState(false)
-
+    const isAdmin = useSelector(state => state.isAdmin)
     useEffect(() => {
-        if (kanriFlg) setshowModal(true)
+        if (isAdmin) setshowModal(true)
         let path = window.location.pathname.replace('/', '')
         if (path === "BookAdd") setshowModal(false)
     }, [])
