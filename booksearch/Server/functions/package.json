@@ -3,8 +3,8 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "lint": "eslint .",
-    "emulate": "firebase emulators:start",
-    "emulateWithData": "firebase emulators:start --import ./data --export-on-exit ./data",
+    "emulate": "cross-env NODE_ENV=emu firebase emulators:start",
+    "emulate-with-data": "cross-env NODE_ENV=emu firebase emulators:start --import ./data --export-on-exit ./data",
     "serve": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
@@ -15,6 +15,7 @@
     "node": "8"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase": "^7.7.0",
     "firebase-admin": "^8.6.0",
     "firebase-functions": "^3.3.0"

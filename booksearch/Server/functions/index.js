@@ -14,6 +14,9 @@ const {
     addBookInfo
 } = require('./src/Book');
 
+const cors = require('cors')({ origin: true });
+app.use(cors);
+
 // ログイン処理を設定
 app.post('/login', login);
 

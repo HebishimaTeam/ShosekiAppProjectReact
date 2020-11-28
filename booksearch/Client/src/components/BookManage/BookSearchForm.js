@@ -4,6 +4,7 @@ import { Book } from './index'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import functions from 'firebase-functions'
 
 // ToDo セッションから取得
 const BookSearchForm = () => {
@@ -18,6 +19,10 @@ const BookSearchForm = () => {
         history.push('/BookAdd')
     }
     const commonAxiosProc = (url) => {
+        const env = process.env.REACT_APP_ENV
+        if (process.env.REACT_APP_ENV === 'emu') {
+            url = `http://localhost:5001/shosekiappproject/us-central1/api${url}`
+        } 
         axios.get(url)
             .then(res => {
                 setBooks(res.data)

@@ -24,6 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-emu": "cross-env REACT_APP_ENV=emu react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --verbose --silent=false",
     "eject": "react-scripts eject"
