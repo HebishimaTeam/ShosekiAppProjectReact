@@ -121,7 +121,6 @@ exports.addBookInfo = (req, res) => {
         isbn: req.body.isbn,
         comment: req.body.comment,
         image: req.body.image,
-        link: req.body.link,
         title: req.body.title
     };
 

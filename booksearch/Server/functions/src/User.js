@@ -3,6 +3,16 @@ const config = require('../src/config');
 firebase.initializeApp(config);
 
 const firebaseDb = firebase.firestore();
+
+/*
+エミュレータ設定
+エミュレータで実行しない場合/デプロイする時は無効化する
+*/
+firebaseDb.settings({
+  host: "localhost:8080",
+  ssl: false,
+})
+
 const collection = firebaseDb.collection('AdminUsers')
 
 //Login
