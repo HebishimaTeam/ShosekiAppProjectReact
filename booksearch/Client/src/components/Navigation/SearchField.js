@@ -43,8 +43,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
 const SearchField = (props) => {
     const classes = useStyles();
     const handleSubmit = (event) => {
