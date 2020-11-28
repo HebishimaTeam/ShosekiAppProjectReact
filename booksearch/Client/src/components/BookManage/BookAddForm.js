@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CSVReader from "../../atoms/CSVReader";
+import CSVReader, { onDrop } from "../../atoms/CSVReader";
 import { Button, TextBox, Validation } from '../../atoms/index';
 import { commonSearchBook } from "../../logics/api";
 import { getArrayFromCsvFile } from "../../logics/file";
@@ -30,10 +30,10 @@ const BookAddForm = () => {
         setValidMessage(Validation.formValidate('isbn', onlyNumber))
     }
 
-    /**type="file"のinputタグのref */
-    const fileInputRef = React.useRef(null)
-
-    /**ファイル読み込み時のハンドラ */
+/**
+ * ファイル読み込み時のハンドラ
+ * @type {onDrop}
+ */
     const handleChangeFile = files => {
         if (!files.length || !files[0] || !files[0].name.endsWith(".csv")) {
             alert("非対応のファイル形式")

@@ -4,14 +4,14 @@ import { useDropzone } from 'react-dropzone'
 /**
  * CSVデータを投入された際に実行されるコールバック
  *
- * @callback onDrop
+ * @callback onDropHandler
  * @param {File[]} file
  * 他のパラメータは現在不使用なので省略
  */
 
 /**
  * @typedef Props
- * @property {onDrop} onDrop 
+ * @property {onDropHandler} onDrop
  */
 
 /**

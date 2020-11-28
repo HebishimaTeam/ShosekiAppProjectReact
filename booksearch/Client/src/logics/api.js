@@ -7,13 +7,12 @@ import axios from 'axios'
  * @property {string} title
  * @property {string} image
  * @property {string} comment
- * @property {string} link
  */
 
 /**
  * APIのレスポンス
  * @typedef {Object} fetchResult
- * @property {BookInfo} [book]
+ * @property {BookInfo} book
  * @property {any} [err]
  */
 /**
@@ -24,7 +23,7 @@ import axios from 'axios'
 export const commonSearchBook = (isbn) => {
     const openbdApi = 'https://api.openbd.jp/v1/get?isbn='
     return new Promise(resolve => {
-        let returnObj = { book: undefined, err: undefined }
+        let returnObj = { book: { isbn: isbn, comment: '', image: '', title: '' }, err: undefined }
         //google Books APiを検索
         const url = `${openbdApi}${isbn.toString().trim()}&pretty`
         axios.get(url)

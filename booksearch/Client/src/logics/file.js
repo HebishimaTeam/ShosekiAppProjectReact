@@ -40,12 +40,8 @@ export const getArrayFromCsvFile = (file, callback) => {
                     const isbn = obj[0]
                     try {
                         commonSearchBook(isbn).then(result => {
-                            if (result.book) {
-                                books.push(result.book)
-                            }
-                            else {
-                                books.push({ ...result.book, })
-                            }
+                            books.push(result.book)
+
                             if (callback) callback(result)
 
                             count += 1
