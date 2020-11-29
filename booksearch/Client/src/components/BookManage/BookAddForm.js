@@ -21,7 +21,8 @@ const BookAddForm = () => {
                     isbn: res.data[0].summary.isbn,
                     title: res.data[0].summary.title,
                     image: res.data[0].summary.cover,
-                    comment: res.data[0].onix.CollateralDetail.TextContent[0].Text
+                    description: res.data[0].onix.CollateralDetail.TextContent[0].Text,
+                    comment: []
                 }
                 setBook(newBook)
             })

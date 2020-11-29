@@ -3,9 +3,6 @@ import { Card, CardContent, Typography } from '@material-ui/core'
 import { EditModal, DeleteModal, BookImage } from './index'
 import { useSelector } from 'react-redux'
 
-// ToDo kanriFlg セッションから取得
-
-
 const Book = (props) => {
 
     const [isShowDeleteModal, setshowModal] = useState(false)
@@ -25,7 +22,7 @@ const Book = (props) => {
                 <div className="book-contents">
                     <CardContent>
                         <Typography variant="h5">{props.book.title}</Typography>
-                        <Typography variant="body2">{props.book.comment}</Typography>
+                        <Typography variant="body2">{props.book.description}</Typography>
                     </CardContent>
                 </div>
                 <div className="book-bottons">
