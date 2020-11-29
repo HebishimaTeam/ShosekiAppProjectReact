@@ -13,7 +13,9 @@
 
 1. `/Server/functions`のnpm script `emulate` または `emulate-with-data` を実行してfirestore, functionsのエミュレータを実行
 
-    `localhost:4000`から実行中のエミュレータの状態を確認できます
+    - `emulate`では初期化されたfirestoreが起動され、`emulate-with-data`は変更が保存されるfirestoreが起動します
+
+    - `localhost:4000`から実行中のエミュレータの状態を確認できます
 
 2. (Webアプリからエミュレータを呼び出す場合)`Client`のnpm script `start-emu` を実行
 

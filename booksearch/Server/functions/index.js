@@ -11,7 +11,8 @@ const {
     getAllBookInfo,
     deleteBookInfo,
     updateBookInfo,
-    addBookInfo
+    addBookInfo,
+    addBookList
 } = require('./src/Book');
 
 const cors = require('cors')({ origin: true });
@@ -30,6 +31,8 @@ app.post('/deleteBookInfo', deleteBookInfo);
 app.post('/updateBookInfo', updateBookInfo);
 // 書籍追加処理を設定
 app.post('/addBookInfo', addBookInfo);
+// 書籍複数追加処理を設定
+app.post('/addBookList', addBookList);
 
 // HTTPリクエストトリガー設定
 exports.api = functions.region('us-central1').https.onRequest(app);

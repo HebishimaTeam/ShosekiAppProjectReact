@@ -4,7 +4,6 @@ import { Book } from './index'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import functions from 'firebase-functions'
 
 // ToDo セッションから取得
 const BookSearchForm = () => {
