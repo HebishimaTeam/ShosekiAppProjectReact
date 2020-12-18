@@ -1,4 +1,4 @@
-import { SOME_ACTION, login, reducer, initialState } from "./session";
+import { login, reducer, initialState } from "./session";
 
 /** 
  * vscodeを利用してjestによるテストを行う場合は、
@@ -12,7 +12,7 @@ import { SOME_ACTION, login, reducer, initialState } from "./session";
 describe('単純な関数をテストするデモ', () => {
     /**テスト対象の関数 */
     function plus(a, b) {
-        return a + b
+        return a + b;
     }
     it('1 + 1 = ?', () => {
         //plus関数を実行します

@@ -48,12 +48,22 @@ const LoginForm = (props) => {
     axios.post('/login', info)
       .then((res) => {
         setLoading(false) //ぐるぐるが終わる
+        if (
+          res.data?.result?.isAdmin !== true &&
+          res.data?.result?.isAdmin !== false
+        ) {
+          throw new Error("データ取得失敗");
+        }
         // アクションを発行してログインフラグを立てる
-        dispatch(login({ isAdmin: res.data.isAdmin }))
+        dispatch(login({ isAdmin: res.data.result.isAdmin }));
       },
       ).catch((error) => {
         console.error(error)
-        setErrors(error.response.data)
+        if (error instanceof Error) {
+          setErrors(error.message);
+        } else {
+          setErrors(error.response.data);
+        }
         console.debug(errors)
         setLoading(false)
         alert('ログインエラーです')

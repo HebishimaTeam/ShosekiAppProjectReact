@@ -6,12 +6,15 @@ import { useSelector } from 'react-redux'
 const Book = (props) => {
 
     const [isShowDeleteModal, setshowModal] = useState(false)
-    const isAdmin = useSelector(state => state.isAdmin)
+    const select = (state) => {
+      return state.session.isAdmin;
+    };
+    const isAdmin = useSelector(select);
     useEffect(() => {
-        if (isAdmin) setshowModal(true)
-        let path = window.location.pathname.replace('/', '')
-        if (path === "BookAdd") setshowModal(false)
-    }, [])
+      if (isAdmin) setshowModal(true);
+      let path = window.location.pathname.replace("/", "");
+      if (path === "BookAdd") setshowModal(false);
+    }, []);
 
     return (
         <React.Fragment>

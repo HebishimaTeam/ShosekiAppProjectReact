@@ -19,7 +19,7 @@ const sessionSlice = createSlice({
         // 引数はreducer関数内でaction.payloadに入る
         login: (state, action) => {
             state.isAuthorized = true
-            state.isAdmin = action.payload.isAdmin
+            state.isAdmin = action.payload;
         },
         logout: (state, action) => {
             state.isAuthorized = false
