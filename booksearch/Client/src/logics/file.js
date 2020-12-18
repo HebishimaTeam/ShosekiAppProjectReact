@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { commonSearchBook, fetchResult, BookInfo } from "./api";
 import * as csvparser from "react-papaparse";
 
@@ -26,10 +27,11 @@ export const getArrayFromCsvFile = (file, callback) => {
         reader.addEventListener('load', () => {
             let list = []
             try {
-
-                list = csvparser.readString(reader.result).data?.filter(item => item[0] !== '')
+              list = csvparser
+                .readString(reader.result)
+                .data?.filter((item) => item[0] !== "");
             } catch (error) {
-                throw new Error('csv parse error')
+              throw new Error("csv parse error");
             }
             let books = []
 
@@ -50,6 +52,9 @@ export const getArrayFromCsvFile = (file, callback) => {
                         })
                     } catch (error) {
                         count += 1
+                        books.push({ isbn: isbn });
+                        if (callback)
+                          callback({ book: { isbn: isbn }, err: error });
                         //全部の取得が完了
                         if (count === list.length) resolve()
                     }

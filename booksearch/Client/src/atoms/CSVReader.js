@@ -1,5 +1,5 @@
 import React from "react";
-import { useDropzone } from 'react-dropzone'
+import { useDropzone } from "react-dropzone";
 
 /**
  * CSVデータを投入された際に実行されるコールバック
@@ -19,21 +19,28 @@ import { useDropzone } from 'react-dropzone'
  * @param {Props} props
  */
 const CSVFileReader = (props) => {
-    const onDrop = React.useCallback(props.onDrop, [])
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: '.csv' })
+  const onDrop = React.useCallback(props.onDrop, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: ".csv",
+  });
 
-    return (
-        <div
-            {...getRootProps()}
-            style={{ border: "black solid 1px" }}>
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                    <p>ここにドロップ</p> :
-                    <p>ドラッグアンドドロップかクリックでCSVファイルを追加</p>
-            }
-        </div>
-    )
-}
+  return (
+    <div
+      {...getRootProps()}
+      style={{
+        border: "black solid 1px",
+        height: "50vh",
+      }}
+    >
+      <input {...getInputProps()} />
+      {isDragActive ? (
+        <p>ここにドロップ</p>
+      ) : (
+        <p>ドラッグアンドドロップかクリックでCSVファイルを追加</p>
+      )}
+    </div>
+  );
+};
 
-export default CSVFileReader
+export default CSVFileReader;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from '../../atoms/index'
 import { Book } from './index'
-import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { commonAxiosProc } from "../../logics/api";
 
 // ToDo セッションから取得
 const BookSearchForm = () => {
@@ -17,29 +17,25 @@ const BookSearchForm = () => {
         //書籍追加画面に遷移
         history.push('/BookAdd')
     }
-    const commonAxiosProc = (url) => {
-        const env = process.env.REACT_APP_ENV
-        if (process.env.REACT_APP_ENV === 'emu') {
-            url = `http://localhost:5001/shosekiappproject/us-central1/api${url}`
-        } 
-        axios.get(url)
-            .then(res => {
-                setBooks(res.data)
-                if (res.data.length === 0) setSearchedMessage('該当する本はありません')
-            },
-            ).catch(error => {
-                alert(error)
-            })
+    
+    /**@param {string} url */
+    const commonSearchProc = (url) => {
+        commonAxiosProc(url).then(res => {
+            setBooks(res.data)
+            if (res.data.length === 0) setSearchedMessage('該当する本はありません')
+        }).catch((error) => {
+            alert(error);
+        });
     }
 
-    useEffect(() => commonAxiosProc('/getAllBookInfo'), [])
+    useEffect(() => commonSearchProc('/getAllBookInfo'), [])
 
     useEffect(() => {
         const searchBook = (title) => {
             if (title === "") {
-                commonAxiosProc('/getAllBookInfo')
+                commonSearchProc('/getAllBookInfo')
             } else {
-                commonAxiosProc(`/getBookInfo?title=${title}`)
+                commonSearchProc(`/getBookInfo?title=${title}`)
             }
         }
         searchBook(navBarSearched)

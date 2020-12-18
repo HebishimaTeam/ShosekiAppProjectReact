@@ -14,7 +14,7 @@ const Book = (props) => {
       if (isAdmin) setshowModal(true);
       let path = window.location.pathname.replace("/", "");
       if (path === "BookAdd") setshowModal(false);
-    }, []);
+    }, [isAdmin]);
 
     return (
         <React.Fragment>

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import CSVReader, { onDrop } from "../../atoms/CSVReader";
 import { Button, TextBox, Validation } from "../../atoms/index";
 import { commonSearchBook } from "../../logics/api";
-import { getArrayFromCsvFile } from "../../logics/file";
 import { Book } from "./index";
+import CSVAdd from "./CSVAddModal";
 
 const BookAddForm = () => {
   const [isbn, setIsbn] = useState("");
@@ -31,34 +30,10 @@ const BookAddForm = () => {
     setValidMessage(Validation.formValidate("isbn", onlyNumber));
   };
 
-  /**
-   * ファイル読み込み時のハンドラ
-   * @type {onDrop}
-   */
-  const handleChangeFile = (files) => {
-    if (!files.length || !files[0] || !files[0].name.endsWith(".csv")) {
-      alert("非対応のファイル形式");
-      return;
-    }
-
-    getArrayFromCsvFile(files[0], (result) => {
-      if (result.err) {
-        console.error(result.err);
-      } else if (result.book) {
-        console.debug(`"${result.book.title}"のデータを取得完了`);
-        //ここでstate更新などすれば順次追加の表示ができる
-      }
-    }).then((books) => {
-      //デバッグコンソールに出力
-      console.debug("書籍情報の一覧取得完了");
-      console.debug(JSON.stringify(books, undefined, 1));
-    });
-  };
-
   let searchedBook = newBook ? <Book book={newBook} /> : searchedMsg;
   return (
     <div className="body">
-      <CSVReader onDrop={handleChangeFile} />
+      <CSVAdd  />
       <div className="wrap">
         ISBN-
         <TextBox name="isbn" onChange={changeIsbn} value={isbn} />
