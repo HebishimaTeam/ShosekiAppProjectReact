@@ -5,6 +5,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 // import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { searchBook } from '../../redux/Slices/book/book'
+import axios from 'axios'
 
 const DeleteModal = (props) => {
 
@@ -18,15 +19,27 @@ const DeleteModal = (props) => {
         setOpen(false)
     }
     const onRegister = () => {
+
+        axios.post('/deleteBookInfo', {
+            isbn: props.book.isbn,
+        }).then((res) => {
+            // 削除成功
+            dispatch(searchBook(""))
+            alert('削除しました。')
+            closeModal()
+        }).catch((error) => {
+            console.error(error)
+            alert('削除に失敗しました。管理者に問い合わせてください。')
+        })
         // 削除処理
         //     .then(() => {
-        dispatch(searchBook())
+        
         //         alert('削除しました。')
         //     }).catch((error) => {
         //         console.error(error)
         //         alert('削除に失敗しました。管理者に問い合わせてください。')
         //     })
-        closeModal()
+        
     }
 
     return (

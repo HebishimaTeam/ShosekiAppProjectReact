@@ -5,9 +5,10 @@ import axios, { AxiosResponse } from "axios";
  * 書籍情報
  * @typedef {Object} BookInfo
  * @property {string} isbn
+ * @property {string} comment
  * @property {string} title
  * @property {string} image
- * @property {string} comment
+ * @property {string} description
  */
 
 /**
@@ -38,9 +39,10 @@ export const commonSearchBook = (isbn) => {
         //検索成功パターン
         const newBook = {
           isbn: res.data[0].summary.isbn,
+          comment: "",
           title: res.data[0].summary.title,
           image: res.data[0].summary.cover,
-          comment: res.data[0].onix.CollateralDetail.TextContent[0].Text,
+          description: res.data[0].onix.CollateralDetail.TextContent[0].Text,
         };
         resolve({ ...returnObj, book: newBook });
       })

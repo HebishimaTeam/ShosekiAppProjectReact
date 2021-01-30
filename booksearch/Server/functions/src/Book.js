@@ -124,14 +124,24 @@ exports.updateBookInfo = (req, res) => {
 
 // 書籍情報追加
 exports.addBookInfo = (req, res) => {
+
+    // unigram形式に変換
+    const searchWords = ngram(req.body.title, 1)
+
+    // mapに変換
+    var tokenMap = {}
+    searchWords.forEach((item) => {
+        tokenMap[item] = true
+    })
     const add_book_info = {
         isbn: req.body.isbn,
         comment: req.body.comment,
         image: req.body.image,
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        tokenMap: tokenMap,
     }
-
+    
     var docRef = collection.doc(add_book_info.isbn)
 
     docRef
@@ -171,7 +181,23 @@ exports.addBookList = (req, res) => {
                         if (doc.exists) {
                             throw new Error('書籍情報は既に存在しています。')
                         } else {
-                            return collection.doc(bookInfo.isbn).set(bookInfo)
+                            // unigram形式に変換
+                            const searchWords = ngram(bookInfo.title, 1)
+
+                            // mapに変換
+                            var tokenMap = {}
+                            searchWords.forEach((item) => {
+                                tokenMap[item] = true
+                            })
+                            const add_book_info = {
+                                isbn: bookInfo.isbn,
+                                comment: "",
+                                image: bookInfo.image,
+                                title: bookInfo.title,
+                                description: req.body.description,
+                                tokenMap: tokenMap
+                            }
+                            return collection.doc(bookInfo.isbn).set(add_book_info)
                         }
                     })
                     .then(() => {

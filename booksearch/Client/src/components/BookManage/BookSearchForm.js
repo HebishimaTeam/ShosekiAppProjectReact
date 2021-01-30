@@ -43,8 +43,11 @@ const BookSearchForm = () => {
 
     return (
         <div className="body">
-            <div className="wrap">
-                <div>BookSearchForm</div>
+            <div style={{ textAlign: "right",
+                          marginBottom: "10px",
+                          marginTop: "10px",
+                          marginRight: "30px"
+                        }}>
                 {isAdmin &&
                     (<Button
                         variant="contained"
